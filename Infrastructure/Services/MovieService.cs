@@ -21,7 +21,39 @@ namespace Infrastructure.Services
 
         public MovieDetailsModel GetMovieDetails(int id)
         {
-            var movie = new MovieDetailsModel { };
+            var movieDetails = _movieRepository.GetById(id);
+
+            var movie = new MovieDetailsModel {
+                Id = movieDetails.Id,
+                Tagline = movieDetails.Tagline,
+                Title = movieDetails.Title,
+                Overview = movieDetails.Overview,
+                PosterUrl = movieDetails.PosterUrl,
+                BackdropUrl = movieDetails.BackdropUrl,
+                ImdbUrl = movieDetails.ImdbUrl,
+                RunTime = movieDetails.RunTime,
+                TmdbUrl = movieDetails.TmdbUrl,
+                Revenue = movieDetails.Revenue,
+                Budget = movieDetails.Budget,
+                ReleaseDate = movieDetails.ReleaseDate
+            };
+
+            foreach (var genre in movieDetails.GenresOfMovies)
+            {
+                movie.Genres.Add(new GenreModel { Id = genre.GenreId, Name = genre.Genre.Name });
+            }
+
+            foreach (var trailer in movieDetails.Trailers)
+            {
+                movie.Trailers.Add(new TrailerModel { Id = trailer.Id, Name = trailer.Name, TrailerUrl = trailer.TrailerUrl });
+            }
+
+            /*
+            foreach (var cast in movieDetails.CastOfMovies)
+            {
+                movie.Casts.Add(new CastModel { });
+            }
+            */
 
             return movie;
         }

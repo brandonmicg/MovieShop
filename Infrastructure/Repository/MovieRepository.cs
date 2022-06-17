@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ApplicationCore.Contracts.Repositories;
 using ApplicationCore.Entities;
 using Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repository
 {
@@ -24,6 +25,17 @@ namespace Infrastructure.Repository
         public IEnumerable<Movie> Get30HighestRatedMovies()
         {
             throw new NotImplementedException();
+        }
+
+        public override Movie GetById(int id)
+        {
+
+            var movieDetails = _dbContext.Movies
+                .Include(m => m.GenresOfMovies).ThenInclude(m => m.Genre)
+                .Include(m => m.Trailers)
+                .FirstOrDefault(m => m.Id == id);
+
+            return movieDetails;
         }
     }
 }
