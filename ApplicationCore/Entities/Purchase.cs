@@ -18,7 +18,7 @@ namespace ApplicationCore.Entities
         public int UserId { get; set; }
 
         [Required]
-        public string PurchaseNumber { get; set; }
+        public Guid PurchaseNumber { get; set; }
 
         [Column(TypeName = "decimal(18, 2)")]
         [Required]

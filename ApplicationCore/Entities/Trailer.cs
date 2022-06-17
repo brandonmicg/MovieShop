@@ -16,11 +16,10 @@ namespace ApplicationCore.Entities
         public int MovieId { get; set; }
 
         [MaxLength(2084)]
-        public string TrailerUrl { get; set; }
+        public string? TrailerUrl { get; set; }
 
         [MaxLength(2084)]
-        [Required]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         public Movie Movie { get; set; }
         

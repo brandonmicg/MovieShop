@@ -16,7 +16,7 @@ namespace ApplicationCore.Entities
 
         [MaxLength(450)]
         [Required]
-        public string? Character { get; set; }
+        public string Character { get; set; }
 
         public Movie Movie { get; set; }
         public Cast Cast { get; set; }

@@ -16,11 +16,11 @@ namespace ApplicationCore.Entities
 
         [MaxLength(128)]
         [Required]
-        public string? Department { get; set; }
+        public string Department { get; set; }
 
         [MaxLength(128)]
         [Required]
-        public string? Job { get; set; }
+        public string Job { get; set; }
 
         public Movie Movie { get; set; }
         public Crew Crew { get; set; }
