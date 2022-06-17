@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ApplicationCore.Contracts
+namespace ApplicationCore.Contracts.Repositories
 {
-    public class IReportRepository
+    public interface IPurchaseRepository
     {
     }
 }

@@ -1,5 +1,8 @@
-
+using ApplicationCore.Contracts.Repositories;
+using ApplicationCore.Services;
 using Infrastructure.Data;
+using Infrastructure.Repository;
+using Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +14,9 @@ builder.Services.AddDbContext<MovieShopDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("MovieShopConnection"));
 });
+
+builder.Services.AddScoped<IMovieService, MovieService>();
+builder.Services.AddScoped<IMovieRepository, MovieRepository>();
 
 var app = builder.Build();
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ApplicationCore.Contracts;
+using ApplicationCore.Contracts.Repositories;
 using ApplicationCore.Entities;
 using Infrastructure.Data;
 
@@ -15,13 +15,13 @@ namespace Infrastructure.Repository
         {
         }
 
-        public IEnumerable<Movie> GetHighestGrossingMovies()
+        public IEnumerable<Movie> Get30HighestGrossingMovies()
         {
             var movies = _dbContext.Movies.OrderByDescending(x => x.Revenue).Take(30).ToList();
             return movies;
         }
 
-        public IEnumerable<Movie> GetHighestRatedMovies()
+        public IEnumerable<Movie> Get30HighestRatedMovies()
         {
             throw new NotImplementedException();
         }
