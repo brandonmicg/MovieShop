@@ -20,7 +20,12 @@ namespace Infrastructure.Services
 
         public CastDetailsModel GetCastDetails(int id)
         {
-            throw new NotImplementedException();
+            var castDetails = _castRepository.GetById(id);
+
+            //finish
+            var cast = new CastDetailsModel();
+
+            return cast;
         }
     }
 }

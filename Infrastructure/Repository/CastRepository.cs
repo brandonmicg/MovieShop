@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ApplicationCore.Contracts.Repositories;
 using ApplicationCore.Entities;
 using Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repository
 {
@@ -17,7 +18,11 @@ namespace Infrastructure.Repository
 
         public override Cast GetById(int id)
         {
-            return base.GetById(id);
+            var castDetails = _dbContext.Casts
+                .Include(c => c.MoviesOfCast).ThenInclude(c => c.Movie)
+                .FirstOrDefault(c => c.Id == id);
+
+            return castDetails;
         }
     }
 }
