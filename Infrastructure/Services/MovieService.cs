@@ -35,7 +35,7 @@ namespace Infrastructure.Services
                 TmdbUrl = movieDetails.TmdbUrl,
                 Revenue = movieDetails.Revenue,
                 Budget = movieDetails.Budget,
-                ReleaseDate = movieDetails.ReleaseDate
+                ReleaseDate = movieDetails.ReleaseDate               
             };
 
             foreach (var genre in movieDetails.GenresOfMovies)
@@ -48,12 +48,12 @@ namespace Infrastructure.Services
                 movie.Trailers.Add(new TrailerModel { Id = trailer.Id, Name = trailer.Name, TrailerUrl = trailer.TrailerUrl });
             }
 
-            /*
+            
             foreach (var cast in movieDetails.CastOfMovies)
-            {
-                movie.Casts.Add(new CastModel { });
+            {             
+                movie.Casts.Add(new CastModel { Id = cast.CastId, Name = cast.Cast.Name, Character = cast.Character, ProfilePath = cast.Cast.ProfilePath});
             }
-            */
+            
 
             return movie;
         }

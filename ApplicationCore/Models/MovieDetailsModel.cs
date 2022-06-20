@@ -27,6 +27,7 @@ namespace ApplicationCore.Models
         public string? ImdbUrl { get; set; }
         public string? TmdbUrl { get; set; }
         public DateTime? ReleaseDate { get; set; }
+        public int ReleaseYear => ReleaseDate.Value.Year;
         public int? RunTime { get; set; }
         public decimal? Price { get; set; }
 
