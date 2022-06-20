@@ -36,7 +36,8 @@ namespace Infrastructure.Services
                 Revenue = String.Format("{0:c}", movieDetails.Revenue),
                 Budget = String.Format("{0:c}", movieDetails.Budget),
                 ReleaseDate = movieDetails.ReleaseDate.Value.ToString("MMMM dd, yyyy"),
-                ReleaseYear = movieDetails.ReleaseDate.Value.Year
+                ReleaseYear = movieDetails.ReleaseDate.Value.Year,
+                Price = movieDetails.Price
             };
 
             foreach (var genre in movieDetails.GenresOfMovies)

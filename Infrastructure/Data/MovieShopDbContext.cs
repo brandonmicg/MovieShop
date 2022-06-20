@@ -39,7 +39,7 @@ namespace Infrastructure.Data
             modelBuilder.Entity<MovieCrew>(ConfigMovieCrew);
             modelBuilder.Entity<UserRole>(ConfigUserRole);
             modelBuilder.Entity<Review>(ConfigReview);
-
+            modelBuilder.Entity<Movie>(ConfigMovie);
         }
 
         private void ConfigMovieGenre(EntityTypeBuilder<MovieGenre> builder)
@@ -65,6 +65,13 @@ namespace Infrastructure.Data
         private void ConfigReview(EntityTypeBuilder<Review> builder)
         {
             builder.HasKey(x => new { x.MovieId, x.UserId });
+        }
+
+        private void ConfigMovie(EntityTypeBuilder<Movie> builder)
+        {
+            builder.Property(m => m.Price).HasDefaultValue(9.9m);
+            builder.Property(m => m.Budget).HasDefaultValue(9.9m);
+            builder.Property(m => m.Revenue).HasDefaultValue(9.9m);
         }
     }
 }
