@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ApplicationCore.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace ApplicationCore.Services
 {
     public interface ICastService
     {
-
+        CastDetailsModel GetCastDetails(int id);
     }
 }
