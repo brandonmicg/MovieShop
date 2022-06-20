@@ -1,5 +1,11 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model ApplicationCore.Models.CastDetailsModel
+
+<h1>@Model.Name</h1>
+<h2>@Model.Gender</h2>
+<img src=@Model.ProfilePath />
+
+<ul>
+    @foreach(var movie in @Model.Movies){
+        <li>@movie.Title</li>
+    }
+</ul>
