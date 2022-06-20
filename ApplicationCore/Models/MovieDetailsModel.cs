@@ -22,12 +22,12 @@ namespace ApplicationCore.Models
         public decimal? Rating { get; set; }
         public string? Overview { get; set; }
         public string? Tagline { get; set; }
-        public decimal? Budget { get; set; }
-        public decimal? Revenue { get; set; }
+        public string? Budget { get; set; }
+        public string? Revenue { get; set; }
         public string? ImdbUrl { get; set; }
         public string? TmdbUrl { get; set; }
-        public DateTime? ReleaseDate { get; set; }
-        public int ReleaseYear => ReleaseDate.Value.Year;
+        public string? ReleaseDate { get; set; }
+        public int ReleaseYear { get; set; }
         public int? RunTime { get; set; }
         public decimal? Price { get; set; }
 

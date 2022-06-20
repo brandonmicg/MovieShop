@@ -33,9 +33,10 @@ namespace Infrastructure.Services
                 ImdbUrl = movieDetails.ImdbUrl,
                 RunTime = movieDetails.RunTime,
                 TmdbUrl = movieDetails.TmdbUrl,
-                Revenue = movieDetails.Revenue,
-                Budget = movieDetails.Budget,
-                ReleaseDate = movieDetails.ReleaseDate               
+                Revenue = String.Format("{0:c}", movieDetails.Revenue),
+                Budget = String.Format("{0:c}", movieDetails.Budget),
+                ReleaseDate = movieDetails.ReleaseDate.Value.ToString("MMMM dd, yyyy"),
+                ReleaseYear = movieDetails.ReleaseDate.Value.Year
             };
 
             foreach (var genre in movieDetails.GenresOfMovies)
@@ -53,8 +54,8 @@ namespace Infrastructure.Services
             {             
                 movie.Casts.Add(new CastModel { Id = cast.CastId, Name = cast.Cast.Name, Character = cast.Character, ProfilePath = cast.Cast.ProfilePath});
             }
-            
 
+            
             return movie;
         }
 
