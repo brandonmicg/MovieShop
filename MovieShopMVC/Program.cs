@@ -1,4 +1,5 @@
 using ApplicationCore.Contracts.Repositories;
+using ApplicationCore.Entities;
 using ApplicationCore.Services;
 using Infrastructure.Data;
 using Infrastructure.Repository;
@@ -15,6 +16,8 @@ builder.Services.AddDbContext<MovieShopDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("MovieShopConnection"));
 });
 
+builder.Services.AddScoped<IRepository<Genre>, Repository<Genre>>();
+builder.Services.AddScoped<IGenreService, GenreService>();
 builder.Services.AddScoped<ICastService, CastService>();
 builder.Services.AddScoped<ICastRepository, CastRepository>();
 builder.Services.AddScoped<IMovieService, MovieService>();

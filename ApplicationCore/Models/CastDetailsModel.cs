@@ -8,5 +8,11 @@ namespace ApplicationCore.Models
 {
     public class CastDetailsModel
     {
+        //add list of movies
+
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Gender { get; set; }
+        public string ProfilePath { get; set; }
     }
 }
