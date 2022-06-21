@@ -1,11 +1,22 @@
 ﻿@model ApplicationCore.Models.CastDetailsModel
 
-<h1>@Model.Name</h1>
-<h2>@Model.Gender</h2>
-<img src=@Model.ProfilePath />
 
-<ul>
-    @foreach(var movie in @Model.Movies){
-        <li>@movie.Title</li>
-    }
-</ul>
+<div class="d-flex justify-content-between h-100">
+    <div class="container p-0 m-0 w-25">
+        <img src=@Model.ProfilePath
+             class="img-thumbnail mt-2 shadow" />
+        <h2>@Model.Name</h2>
+        <h4>@Model.Gender</h4>
+    </div>
+    <div class="container-fluid ms-2 pt-2 bg-dark bg-gradient rounded">
+        <h3 class="text-white">Other Movies:</h3>
+        <div class="row">
+            @foreach (var movie in @Model.Movies)
+            {
+                <div class="col-xl-2 col-lg-3 col-sm-4 col-6">
+                    <partial name="_MovieCard" model="movie">
+                </div>
+            }
+        </div>
+    </div>
+</div>
