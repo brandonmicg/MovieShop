@@ -12,7 +12,7 @@ namespace MovieShopMVC.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(string email, string password)
+        public async Task<IActionResult> Login(UserLoginModel model)
         {
             return View();
         }
