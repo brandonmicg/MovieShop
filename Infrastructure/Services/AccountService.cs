@@ -53,7 +53,19 @@ namespace Infrastructure.Services
 
         public async Task<bool> ValidateUser(string email, string password)
         {
-            throw new NotImplementedException();
+            var user = await _userRepository.GetUserByEmail(email);
+            if(user == null)
+            {
+                throw new Exception("Email does not exist");
+            }
+
+            var hashedPassword = GetHashedPassword(password, user.Salt);
+
+            if(hashedPassword == user.HashedPassword)
+            {
+                return true;
+            }
+            return false;
         }
 
         private string GetRandomSalt()

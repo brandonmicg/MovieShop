@@ -1,10 +1,18 @@
 ﻿using ApplicationCore.Models;
+using ApplicationCore.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MovieShopMVC.Controllers
 {
     public class AccountController : Controller
     {
+        private readonly IAccountService _accountService;
+
+        public AccountController(IAccountService accountService)
+        {
+            _accountService = accountService;
+        }
+
         [HttpGet]
         public async Task<IActionResult> Login()
         {
@@ -14,7 +22,13 @@ namespace MovieShopMVC.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(UserLoginModel model)
         {
-            return View();
+            var isValidPassword = await _accountService.ValidateUser(model.Email, model.Password);
+            if (isValidPassword)
+            {
+                return LocalRedirect("~/");
+            }
+
+            return View(model);
         }
 
         [HttpGet]
@@ -26,7 +40,8 @@ namespace MovieShopMVC.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(UserRegisterModel model)
         {
-            return View();
+            var user = await _accountService.RegisterUser(model);
+            return RedirectToAction("Login");
         }
     }
 }
