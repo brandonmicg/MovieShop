@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "vLmdTv2PcKabb12HJ2s1AG3s+MJKKxYjpD4RZKpOvq6hzBV0rR2R1IAihXsEtKYMvMdPhURtywwARoaBmOMImQ==",
+  "dgSpecHash": "2E4vVXklSmsD0Jfa3g2X/LmHa6rpkYgNwZadKWoozII8QLMieCIK0pA/vM3rrMSPmyWgjSz/hsARDcMWt3SqRQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Brandon\\Source\\Repos\\MovieShop\\MovieShopMVC\\MovieShopMVC.csproj",
   "expectedPackageFiles": [
@@ -8,6 +8,8 @@
     "C:\\Users\\Brandon\\.nuget\\packages\\messagepack\\2.1.152\\messagepack.2.1.152.nupkg.sha512",
     "C:\\Users\\Brandon\\.nuget\\packages\\messagepack.annotations\\2.1.152\\messagepack.annotations.2.1.152.nupkg.sha512",
     "C:\\Users\\Brandon\\.nuget\\packages\\messagepackanalyzer\\2.1.152\\messagepackanalyzer.2.1.152.nupkg.sha512",
+    "C:\\Users\\Brandon\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\6.0.6\\microsoft.aspnetcore.cryptography.internal.6.0.6.nupkg.sha512",
+    "C:\\Users\\Brandon\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\6.0.6\\microsoft.aspnetcore.cryptography.keyderivation.6.0.6.nupkg.sha512",
     "C:\\Users\\Brandon\\.nuget\\packages\\microsoft.aspnetcore.razor.language\\6.0.0\\microsoft.aspnetcore.razor.language.6.0.0.nupkg.sha512",
     "C:\\Users\\Brandon\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\5.0.0\\microsoft.bcl.asyncinterfaces.5.0.0.nupkg.sha512",
     "C:\\Users\\Brandon\\.nuget\\packages\\microsoft.build\\17.0.0\\microsoft.build.17.0.0.nupkg.sha512",
