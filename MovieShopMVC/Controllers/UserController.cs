@@ -1,12 +1,17 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MovieShopMVC.Controllers
 {
+    [Authorize]
     public class UserController : Controller
     {
         [HttpGet]
         public async Task<IActionResult> Purchases()
         {
+            var cookie = this.HttpContext.Request.Cookies["MovieShopAuthCookie"];
+
+
             return View();
         }
 
