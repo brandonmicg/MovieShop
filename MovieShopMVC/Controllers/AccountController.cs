@@ -1,6 +1,7 @@
 ﻿using ApplicationCore.Models;
 using ApplicationCore.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace MovieShopMVC.Controllers
 {
@@ -22,9 +23,18 @@ namespace MovieShopMVC.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(UserLoginModel model)
         {
-            var isValidPassword = await _accountService.ValidateUser(model.Email, model.Password);
-            if (isValidPassword)
+            var user = await _accountService.ValidateUser(model.Email, model.Password);
+            if (user != null)
             {
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Email, model.Email),
+                    new Claim(ClaimTypes.Surname, user.LastName),
+                    new Claim(ClaimTypes.GivenName, user.FirstName),
+                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                    new Claim(ClaimTypes.DateOfBirth, user.Email),
+                    new Claim(ClaimTypes.Country, "USA"),
+                };
                 return LocalRedirect("~/");
             }
 

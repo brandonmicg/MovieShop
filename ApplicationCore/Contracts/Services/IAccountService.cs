@@ -10,6 +10,6 @@ namespace ApplicationCore.Services
     public interface IAccountService
     {
         Task<bool> RegisterUser(UserRegisterModel model);
-        Task<bool> ValidateUser(string email, string password);
+        Task<UserModel> ValidateUser(string email, string password);
     }
 }

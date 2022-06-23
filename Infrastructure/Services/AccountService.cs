@@ -51,7 +51,7 @@ namespace Infrastructure.Services
             return false;
         }
 
-        public async Task<bool> ValidateUser(string email, string password)
+        public async Task<UserModel> ValidateUser(string email, string password)
         {
             var user = await _userRepository.GetUserByEmail(email);
             if(user == null)
@@ -63,9 +63,16 @@ namespace Infrastructure.Services
 
             if(hashedPassword == user.HashedPassword)
             {
-                return true;
+                var userModel = new UserModel
+                {
+                    Id = user.Id,
+                    DateOfBirth = (DateTime)user.DateOfBirth,
+                    Email = user.Email,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName
+                };
             }
-            return false;
+            return null;
         }
 
         private string GetRandomSalt()

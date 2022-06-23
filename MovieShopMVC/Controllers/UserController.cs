@@ -4,7 +4,32 @@ namespace MovieShopMVC.Controllers
 {
     public class UserController : Controller
     {
-        public IActionResult Index()
+        [HttpGet]
+        public async Task<IActionResult> Purchases()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Favorites()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddReview()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddFavorite()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> BuyMovie()
         {
             return View();
         }
