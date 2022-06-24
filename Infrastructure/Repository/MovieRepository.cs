@@ -25,8 +25,22 @@ namespace Infrastructure.Repository
 
         public async Task<IEnumerable<Movie>> Get30HighestRatedMovies()
         {
-            //fix
-            var movies = await _dbContext.Movies.OrderByDescending(x => x.Revenue).Take(30).ToListAsync();
+            //get id's of movies with best averaged rating
+            var avgRatingIds = await _dbContext.Reviews
+                .GroupBy(g => g.MovieId, r => r.Rating)
+                .Select(g => new
+                {
+                    MovieId = g.Key,
+                    AvgRating = g.Average()
+                })
+                .OrderByDescending(x => x.AvgRating)
+                .Take(30).ToListAsync();
+
+            //get all movies from db with ids from avgRating list
+            var movies = await _dbContext.Movies
+                .Where(x => avgRatingIds
+                .All(r => r.MovieId == x.Id)).ToListAsync();
+
             return movies;
         }
 
