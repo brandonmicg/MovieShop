@@ -37,7 +37,8 @@ namespace Infrastructure.Services
                 Budget = String.Format("{0:c}", movieDetails.Budget),
                 ReleaseDate = movieDetails.ReleaseDate.Value.ToString("MMMM dd, yyyy"),
                 ReleaseYear = movieDetails.ReleaseDate.Value.Year,
-                Price = movieDetails.Price
+                Price = movieDetails.Price,
+                Rating = Math.Round(await _movieRepository.GetAverageRatingForMovie(id), 2)
             };
 
             foreach (var genre in movieDetails.GenresOfMovies)

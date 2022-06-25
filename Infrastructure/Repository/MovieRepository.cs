@@ -44,6 +44,15 @@ namespace Infrastructure.Repository
             return movies;
         }
 
+        public async Task<decimal> GetAverageRatingForMovie(int movieId)
+        {
+            var rating = await _dbContext.Reviews
+                .Where(r => r.MovieId == movieId)
+                .AverageAsync(x => x.Rating);
+
+            return rating;
+        }
+
         public async override Task<Movie> GetById(int id)
         {
 
