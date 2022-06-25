@@ -14,5 +14,6 @@ namespace ApplicationCore.Contracts.Repositories
         Task<IEnumerable<Movie>> Get30HighestRatedMovies();
         Task<PagedResultSetModel<Movie>> GetMoviesByGenre(int genreId, int pageSize = 30, int pageNumber = 1, int paginationRange = 5);
         Task<decimal> GetAverageRatingForMovie(int movieId);
+        
     }
 }

@@ -4,10 +4,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ApplicationCore.Contracts.Repositories;
+using ApplicationCore.Entities;
+using Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repository
 {
-    public class PurchaseRepository : IPurchaseRepository
+    public class PurchaseRepository : Repository<Purchase>, IPurchaseRepository
     {
+        public PurchaseRepository(MovieShopDbContext dbContext) : base(dbContext)
+        {
+
+        }
+
+        public async Task<IEnumerable<Purchase>> GetPurchasesByUserId(int id)
+        {
+            var purchases = await _dbContext.Purchases
+                .Where(x => x.UserId == id)
+                .Include(x => x.Movie)
+                .OrderByDescending(x => x.Movie.Revenue)
+                .ToListAsync();
+
+            return purchases;
+        }
     }
 }

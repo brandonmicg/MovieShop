@@ -15,7 +15,7 @@ namespace MovieShopMVC.Controllers
         public async Task<IActionResult> Details(int id)
         {
             var movie = await _movieService.GetMovieDetails(id);
-            //get movie avg
+            
 
             return View(movie);
         }

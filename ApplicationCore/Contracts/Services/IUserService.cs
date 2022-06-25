@@ -12,7 +12,7 @@ namespace ApplicationCore.Services
     {
         //Task<> PurchaseMovie(PurchaseRequestModel purchaseRequest, int userId);
         //Task<> IsMoviePurchased(PurchaseRequestModel purchaseRequest, int userId);
-        //Task<> GetAllPurchasesForUserId(int id);
+        Task<IEnumerable<PurchaseRequestModel>> GetAllPurchasesForUserId(int id);
         //Task<> AddFavorite(FavoriteRequestModel favoriteRequest);
         //Task<> RemoveFavorite(FavoriteRequestModel favoriteRequest);
         //Task<> FavoriteExists(int id, int movieId);

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using ApplicationCore.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MovieShopMVC.Services;
 
@@ -8,10 +9,12 @@ namespace MovieShopMVC.Controllers
     public class UserController : Controller
     {
         private readonly ICurrentLoggedInUser _currentLoggedInUser;
+        private readonly IUserService _userService;
 
-        public UserController(ICurrentLoggedInUser currentLoggedInUser)
+        public UserController(ICurrentLoggedInUser currentLoggedInUser, IUserService userService)
         {
             _currentLoggedInUser = currentLoggedInUser;
+            _userService = userService;
         }
 
         //Purchases, that will give list of movies user purchased and should return a View that will show MovieCards and should use MovieCard partial view.
@@ -22,7 +25,10 @@ namespace MovieShopMVC.Controllers
 
             var userId = _currentLoggedInUser.UserId;
 
-            return View();
+            //get all movies purchased by current user
+            var movies = await _userService.GetAllPurchasesForUserId(userId);
+
+            return View(movies);
         }
 
         //Favorites, that will give list of movies user Favorited and should return a View that will show MovieCards and should use MovieCard partial view.

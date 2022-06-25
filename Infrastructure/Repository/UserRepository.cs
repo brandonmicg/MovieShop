@@ -1,5 +1,6 @@
 ﻿using ApplicationCore.Contracts.Repositories;
 using ApplicationCore.Entities;
+using ApplicationCore.Models;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -21,8 +22,6 @@ namespace Infrastructure.Repository
         {
             throw new NotImplementedException();
         }
-
-
 
         public async Task<User> GetUserByEmail(string email)
         {

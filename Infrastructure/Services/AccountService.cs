@@ -71,6 +71,7 @@ namespace Infrastructure.Services
                     FirstName = user.FirstName,
                     LastName = user.LastName
                 };
+                return userModel;
             }
             return null;
         }
