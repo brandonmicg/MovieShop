@@ -14,6 +14,8 @@ namespace MovieShopMVC.Controllers
             _currentLoggedInUser = currentLoggedInUser;
         }
 
+        //Purchases, that will give list of movies user purchased and should return a View that will show MovieCards and should use MovieCard partial view.
+        [HttpGet]
         public async Task<IActionResult> Purchases()
         {
             //var cookie = this.HttpContext.Request.Cookies["MovieShopAuthCookie"];
@@ -23,12 +25,14 @@ namespace MovieShopMVC.Controllers
             return View();
         }
 
+        //Favorites, that will give list of movies user Favorited and should return a View that will show MovieCards and should use MovieCard partial view.
         [HttpGet]
         public async Task<IActionResult> Favorites()
         {
             return View();
         }
 
+        //Review for user to add a new Review, when user clicks on Review button in Movie Details Page and Review Confirmation Popup
         [HttpPost]
         public async Task<IActionResult> AddReview()
         {
@@ -41,6 +45,7 @@ namespace MovieShopMVC.Controllers
             return View();
         }
 
+        //Buy for user to buy a movie, when user click on Purchase button in Movie Details Page Purchase Confirmation Popup
         [HttpPost]
         public async Task<IActionResult> BuyMovie()
         {

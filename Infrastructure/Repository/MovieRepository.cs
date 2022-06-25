@@ -65,7 +65,7 @@ namespace Infrastructure.Repository
             return movieDetails;
         }
 
-        public async Task<PagedResultSetModel<Movie>> GetMoviesByGenre(int genreId, int pageSize = 30, int pageNumber = 1)
+        public async Task<PagedResultSetModel<Movie>> GetMoviesByGenre(int genreId, int pageSize = 30, int pageNumber = 1, int paginationRange = 5)
         {
             var totalMoviesForGenre = await _dbContext.MovieGenres.Where(m => m.GenreId == genreId).CountAsync();
 
@@ -77,7 +77,7 @@ namespace Infrastructure.Repository
                 .Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize).ToListAsync();
 
-            var pagedMovies = new PagedResultSetModel<Movie>(pageNumber, totalMoviesForGenre, pageSize, movies);
+            var pagedMovies = new PagedResultSetModel<Movie>(pageNumber, totalMoviesForGenre, pageSize, movies, paginationRange);
 
             return pagedMovies;
         }

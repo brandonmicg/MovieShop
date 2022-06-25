@@ -17,9 +17,40 @@
     var previousDisabled = !Model.HasPreviousPage ? "disabled" : "";
     var nextDisabled = !Model.HasNextPage ? "disabled" : "";
 }
-<a class="btn btn-primary @previousDisabled" asp-action="Genres" asp-controller="Movies" asp-route-pageNumber="@(Model.PageNumber - 1)">
-    Prev
-</a>
-<a class="btn btn-primary @nextDisabled"  asp-action="Genres" asp-controller="Movies" asp-route-pageNumber="@(Model.PageNumber + 1)">
-    Next
-</a>
+
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item @previousDisabled">
+      <a class="page-link" asp-action="Genres" asp-controller="Movies" asp-route-pageNumber="1" aria-label="First">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <li class="page-item @previousDisabled">
+      <a class="page-link" asp-action="Genres" asp-controller="Movies" asp-route-pageNumber="@(Model.PageNumber - 1)" aria-label="Previous">
+        <span aria-hidden="true">&lt;</span>
+      </a>
+    </li>
+        @for(int i = @Model.PaginationStart; i <= @Model.PaginationStart + @Model.PaginationRange; i++)
+        {
+            
+            var active = i == @Model.PageNumber ? "active" : "";
+            
+            <li class="page-item @active"><a class="page-link" asp-action="Genres" asp-controller="Movies" asp-route-pageNumber="@i">@i</a></li>
+        }
+    @*<li class="page-item">
+      <a class="page-link" href="#" aria-label="select">
+        <span aria-hidden="true">&hellip;</span>
+      </a>
+    </li>*@
+    <li class="page-item @nextDisabled">
+      <a class="page-link" asp-action="Genres" asp-controller="Movies" asp-route-pageNumber="@(Model.PageNumber + 1)" aria-label="Next">
+        <span aria-hidden="true">&gt;</span>
+      </a>
+    </li>
+    <li class="page-item @nextDisabled">
+      <a class="page-link" asp-action="Genres" asp-controller="Movies" asp-route-pageNumber="@(Model.TotalPages)" aria-label="Last">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>

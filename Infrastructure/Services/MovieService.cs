@@ -61,7 +61,7 @@ namespace Infrastructure.Services
             return movie;
         }
 
-        public async Task<PagedResultSetModel<MovieCardModel>> GetMoviesByGenre(int genreId, int pageSize = 30, int pageNumber = 1)
+        public async Task<PagedResultSetModel<MovieCardModel>> GetMoviesByGenre(int genreId, int pageSize = 30, int pageNumber = 1, int paginationRange = 5)
         {
             var movies = await _movieRepository.GetMoviesByGenre(genreId, pageSize, pageNumber);
 
@@ -72,7 +72,7 @@ namespace Infrastructure.Services
                 movieCards.Add(new MovieCardModel { Id = movie.Id, PosterUrl = movie.PosterUrl, Title = movie.Title });
             }
 
-            return new PagedResultSetModel<MovieCardModel>(pageNumber, movies.TotalRecords, pageSize, movieCards);
+            return new PagedResultSetModel<MovieCardModel>(pageNumber, movies.TotalRecords, pageSize, movieCards, paginationRange);
         }
 
         public async Task<List<MovieCardModel>> GetTopGrossingMovies()
