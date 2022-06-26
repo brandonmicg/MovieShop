@@ -1,5 +1,8 @@
-﻿@model ApplicationCore.Models.MovieDetailsModel
+﻿@*@using MovieShopMVC.Services*@
+@model ApplicationCore.Models.MovieDetailsModel
 
+
+@*@inject CurrentLoggedInUser currentUser*@
 <style>
     .movie-facts .list-group-item {
         border-color: black;
@@ -59,9 +62,21 @@
                     <button class="btn btn-outline-light mb-4" data-bs-toggle="modal" data-bs-target="#reviewModal">
                         <i class="fa-regular fa-pen-to-square me-2"></i>REVIEW
                     </button>
-                    <button class="btn btn-light mb-4" data-bs-toggle="modal" data-bs-target="#purchaseModal">
-                        BUY $@Model.Price
-                    </button>
+                    @if (Model.IsPurchased)
+                    {
+                        <button class="btn btn-light mb-4">
+                            Watch Movie
+                        </button>
+                    }
+                    else
+                    {
+                        //var active = currentUser.IsAuthenticated ? "" : "disabled";
+
+                        <button class="btn btn-light mb-4 " data-bs-toggle="modal" data-bs-target="#purchaseModal">
+                            BUY $@Model.Price
+                        </button>
+                    }
+
 
                     <!-- Modals -->
                     <!-- Review -->
@@ -92,10 +107,10 @@
                                         </button>
                                         <ul class="dropdown-menu"
                                             aria-labelledby="reviewDrpdwnMenuBtn">
-                                            @for(int i = 1; i <= 10; i++)
+                                            @for (int i = 1; i <= 10; i++)
                                             {
                                                 <li><a class="dropdown-item" href="#">@i</a></li>
-                                            }                                          
+                                            }
                                         </ul>
                                     </div>
                                     <div class="input-group">
@@ -136,16 +151,18 @@
                                 <div class="modal-body">
                                     Confirming purchase of @Model.Title for $@Model.Price ?
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button"
-                                            class="btn btn-secondary"
-                                            data-bs-dismiss="modal">
-                                        Close
-                                    </button>
-                                    <button type="button" class="btn btn-primary">
-                                        Confirm
-                                    </button>
-                                </div>
+                                <form asp-action="BuyMovie" asp-controller="User" asp-route-movieId="@Model.Id">
+                                    <div class="modal-footer">
+                                        <button type="button"
+                                                class="btn btn-secondary"
+                                                data-bs-dismiss="modal">
+                                            Close
+                                        </button>
+                                        <button class="btn btn-primary" type="submit">
+                                            Confirm
+                                        </button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>

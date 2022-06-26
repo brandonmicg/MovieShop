@@ -10,8 +10,9 @@ namespace ApplicationCore.Services
 {
     public interface IUserService
     {
-        //Task<> PurchaseMovie(PurchaseRequestModel purchaseRequest, int userId);
-        //Task<> IsMoviePurchased(PurchaseRequestModel purchaseRequest, int userId);
+        Task<bool> PurchaseMovie(PurchaseRequestModel purchaseRequest, int userId);
+        Task<bool> IsMoviePurchased(PurchaseRequestModel purchaseRequest, int userId);
+        Task<bool> IsMoviePurchased(int userId, int movieId);
         Task<IEnumerable<PurchaseRequestModel>> GetAllPurchasesForUserId(int id);
         //Task<> AddFavorite(FavoriteRequestModel favoriteRequest);
         //Task<> RemoveFavorite(FavoriteRequestModel favoriteRequest);

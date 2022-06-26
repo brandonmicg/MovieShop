@@ -36,7 +36,7 @@ namespace Infrastructure.Repository
         }
 
         public virtual Task<T> GetById(int id)
-        {
+        {           
             throw new NotImplementedException();
         }
 

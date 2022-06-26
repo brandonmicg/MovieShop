@@ -18,10 +18,12 @@ namespace Infrastructure.Repository
         {  
         }
 
-        public Task<bool> CheckIfMoviePurchasedByUser(int userId, int movieId)
+        public override async Task<User> GetById(int id)
         {
-            throw new NotImplementedException();
+            var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == id);
+            return user;
         }
+
 
         public async Task<User> GetUserByEmail(string email)
         {

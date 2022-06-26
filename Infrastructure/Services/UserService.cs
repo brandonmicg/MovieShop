@@ -12,15 +12,15 @@ namespace Infrastructure.Services
 {
     public class UserService : IUserService
     {
-        //private readonly IUserRepository _userRepository;
-        private readonly IMovieRepository _movieRepository;
+        private readonly IUserRepository _userRepository;
         private readonly IPurchaseRepository _purchaseRepository;
+        private readonly IMovieRepository _movieRepository;
 
-        public UserService(IMovieRepository movieRepository, IPurchaseRepository purchaseRepository)
+        public UserService(IPurchaseRepository purchaseRepository, IUserRepository userRepository, IMovieRepository movieRepository)
         {
-            //_userRepository = userRepository;
-            _movieRepository = movieRepository;
+            _userRepository = userRepository;
             _purchaseRepository = purchaseRepository;
+            _movieRepository = movieRepository;
         }
 
         public async Task<IEnumerable<PurchaseRequestModel>> GetAllPurchasesForUserId(int id)
@@ -43,6 +43,45 @@ namespace Infrastructure.Services
              }
 
             return purchaseRequests;
+        }
+
+        public async Task<bool> IsMoviePurchased(PurchaseRequestModel purchaseRequest, int userId)
+        {
+            return await _purchaseRepository.CheckIfPurchaseExists(userId, purchaseRequest.MovieId);
+        }
+
+        public async Task<bool> IsMoviePurchased(int userId, int movieId)
+        {
+            return await _purchaseRepository.CheckIfPurchaseExists(userId, movieId);
+        }
+
+        public async Task<bool> PurchaseMovie(PurchaseRequestModel purchaseRequest, int userId)
+        {
+            //check user exists
+            var user = await _userRepository.GetById(userId);
+
+            if (user == null)
+                return false;
+
+            var movie = await _movieRepository.GetById(purchaseRequest.MovieId);
+
+            //create purchase object
+            var newPurchase = new Purchase
+            {
+                MovieId = purchaseRequest.MovieId,
+                UserId = userId,
+                TotalPrice = (decimal)movie.Price,
+                PurchaseDateTime = purchaseRequest.PurchaseDate
+            };
+
+            //save object to purchase repo
+            var saved = await _purchaseRepository.Add(newPurchase);
+
+            //returned if saved
+            if (saved.Id > 1)
+                return true;
+
+            return false;
         }
     }
 }

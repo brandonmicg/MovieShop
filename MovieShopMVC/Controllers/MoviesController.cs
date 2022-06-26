@@ -1,21 +1,25 @@
 ﻿using ApplicationCore.Services;
 using Microsoft.AspNetCore.Mvc;
+using MovieShopMVC.Services;
 
 namespace MovieShopMVC.Controllers
 {
     public class MoviesController : Controller
     {
+        private readonly ICurrentLoggedInUser _currentLoggedInUser;
         private readonly IMovieService _movieService;
 
-        public MoviesController(IMovieService movieService)
+        public MoviesController(IMovieService movieService, ICurrentLoggedInUser currentLoggedInUser)
         {
             _movieService = movieService;
+            _currentLoggedInUser = currentLoggedInUser;
         }
 
         public async Task<IActionResult> Details(int id)
         {
-            var movie = await _movieService.GetMovieDetails(id);
-            
+            var userId = _currentLoggedInUser.IsAuthenticated ? _currentLoggedInUser.UserId : -1;
+
+            var movie = await _movieService.GetMovieDetails(id, userId);                 
 
             return View(movie);
         }

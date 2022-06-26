@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 
 namespace ApplicationCore.Contracts.Repositories
 {
-    public interface IPurchaseRepository
+    public interface IPurchaseRepository : IRepository<Purchase>
     {
 
         Task<IEnumerable<Purchase>> GetPurchasesByUserId(int id);
+        Task<bool> CheckIfPurchaseExists(int userId, int movieId);
     }
 }

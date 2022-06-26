@@ -13,13 +13,15 @@ namespace Infrastructure.Services
     {
         
         private readonly IMovieRepository _movieRepository;
+        private readonly IPurchaseRepository _purchaseRepository;
 
-        public MovieService(IMovieRepository movieRepository)
+        public MovieService(IMovieRepository movieRepository, IPurchaseRepository purchaseRepository)
         {
             _movieRepository = movieRepository;
+            _purchaseRepository = purchaseRepository;
         }
 
-        public async Task<MovieDetailsModel> GetMovieDetails(int id)
+        public async Task<MovieDetailsModel> GetMovieDetails(int id, int userId = -1)
         {
             var movieDetails = await _movieRepository.GetById(id);
 
@@ -38,8 +40,11 @@ namespace Infrastructure.Services
                 ReleaseDate = movieDetails.ReleaseDate.Value.ToString("MMMM dd, yyyy"),
                 ReleaseYear = movieDetails.ReleaseDate.Value.Year,
                 Price = movieDetails.Price,
-                Rating = Math.Round(await _movieRepository.GetAverageRatingForMovie(id), 2)
+                Rating = Math.Round(await _movieRepository.GetAverageRatingForMovie(id), 2),
+                IsPurchased = (userId == -1) ? false : await _purchaseRepository.CheckIfPurchaseExists(userId, id)
             };
+
+
 
             foreach (var genre in movieDetails.GenresOfMovies)
             {

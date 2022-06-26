@@ -1,6 +1,7 @@
 ﻿using ApplicationCore.Services;
 using Microsoft.AspNetCore.Mvc;
 using MovieShopMVC.Models;
+using MovieShopMVC.Services;
 using System.Diagnostics;
 
 namespace MovieShopMVC.Controllers

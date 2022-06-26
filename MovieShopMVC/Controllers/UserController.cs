@@ -1,4 +1,5 @@
-﻿using ApplicationCore.Services;
+﻿using ApplicationCore.Models;
+using ApplicationCore.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MovieShopMVC.Services;
@@ -53,9 +54,23 @@ namespace MovieShopMVC.Controllers
 
         //Buy for user to buy a movie, when user click on Purchase button in Movie Details Page Purchase Confirmation Popup
         [HttpPost]
-        public async Task<IActionResult> BuyMovie()
+        public async Task<IActionResult> BuyMovie(int movieId)
         {
-            return View();
+            //check if movie already purchased
+            var userId = _currentLoggedInUser.UserId;
+            var purchased = await _userService.IsMoviePurchased(userId, movieId);
+
+            //add to purchase db/user
+            if (!purchased)
+            {
+                var purchaseRequest = new PurchaseRequestModel
+                {
+                    MovieId = movieId,
+                    PurchaseDate = DateTime.Now,                 
+                };
+            }
+         
+            return RedirectToAction("Details", "Movies", new { id = movieId });
         }
 
         [HttpGet]
