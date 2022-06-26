@@ -68,6 +68,8 @@ namespace MovieShopMVC.Controllers
                     MovieId = movieId,
                     PurchaseDate = DateTime.Now,                 
                 };
+
+                var purchase = await _userService.PurchaseMovie(purchaseRequest, userId);
             }
          
             return RedirectToAction("Details", "Movies", new { id = movieId });

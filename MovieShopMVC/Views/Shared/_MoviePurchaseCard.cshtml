@@ -1,0 +1,8 @@
+﻿@model ApplicationCore.Models.PurchaseRequestModel
+
+
+<div class="card mb-0 shadow">
+    <a asp-controller="Movies" asp-action="Details" asp-route-id="@Model.MovieId">
+        <img src="@Model.PosterUrl" class="img-fluid" alt="@Model.Title">
+    </a>
+</div>

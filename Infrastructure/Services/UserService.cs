@@ -71,7 +71,8 @@ namespace Infrastructure.Services
                 MovieId = purchaseRequest.MovieId,
                 UserId = userId,
                 TotalPrice = (decimal)movie.Price,
-                PurchaseDateTime = purchaseRequest.PurchaseDate
+                PurchaseDateTime = purchaseRequest.PurchaseDate,
+                PurchaseNumber = Guid.NewGuid()
             };
 
             //save object to purchase repo

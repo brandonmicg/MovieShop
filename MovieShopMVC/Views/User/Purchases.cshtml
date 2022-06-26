@@ -5,9 +5,43 @@
         @foreach (var movie in Model)
         {
             <div class="col-xl-2 col-lg-3 col-sm-4 col-6">
-                <partial name="_MovieCard" model="movie">
+                <partial name="_MoviePurchaseCard" model="movie">
+                    <button class="btn btn-secondary w-100 mb-4" type="button" data-bs-toggle="modal" data-bs-target="#purchaseDetailsModal">Purchase Details</button>
             </div>
-            <button class="btn btn-secondary">Purchase Details</button>
+            <!--modal-->
+            <div class="modal fade" id="purchaseDetailsModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="ModalLabel">Purchase Details</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-4">
+                                    <img class="img-thumbnail" src="@movie.PosterUrl">
+                                </div>
+                                <div class="col-8">
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">
+                                            <i class="fa-regular fa-calendar me-2"></i>Purchased Date
+                                            <span class="badge rounded-pill bg-dark">@movie.PurchaseDateF</span>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <i class="fa-solid fa-money-bill me-2"></i>Price
+                                            <span class="badge rounded-pill bg-dark">$@movie.Price</span>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <i class="fa-solid fa-circle-check me-2"></i>Purchase Number
+                                            <span class="badge rounded-pill bg-dark">@movie.PurchaseNumber</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         }
     </div>
 </div>
