@@ -1,0 +1,11 @@
+﻿@model ApplicationCore.Models.FavoriteModel
+
+@if (Model.Toggle)
+{
+    var buttonType = Model.IsFavorite ? "btn-primary" : "btn-outline-primary";
+    <form asp-controller="User" asp-action="AddFavorite" asp-route-movieId="@Model.MovieId">
+    <button class="btn @buttonType mb-4" type="submit">
+        <i class="fa-solid fa-heart"></i>
+    </button>
+    </form>
+}

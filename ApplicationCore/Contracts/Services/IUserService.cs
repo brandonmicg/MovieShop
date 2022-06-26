@@ -16,7 +16,7 @@ namespace ApplicationCore.Services
         Task<IEnumerable<PurchaseRequestModel>> GetAllPurchasesForUserId(int id);
         //Task<> AddFavorite(FavoriteRequestModel favoriteRequest);
         //Task<> RemoveFavorite(FavoriteRequestModel favoriteRequest);
-        //Task<> FavoriteExists(int id, int movieId);
+        Task<bool> FavoriteExists(int id, int movieId);
         //Task<> GetAllFavoritesForUser(int id);
         //Task<> AddMovieReview(ReviewRequestModel reviewRequest);
         //Task<> UpdateMovieReview(ReviewRequestModel reviewRequest);

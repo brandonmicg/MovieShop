@@ -15,12 +15,21 @@ namespace Infrastructure.Services
         private readonly IUserRepository _userRepository;
         private readonly IPurchaseRepository _purchaseRepository;
         private readonly IMovieRepository _movieRepository;
+        private readonly IFavoriteRepository _favoriteRepository;
 
-        public UserService(IPurchaseRepository purchaseRepository, IUserRepository userRepository, IMovieRepository movieRepository)
+        public UserService(IPurchaseRepository purchaseRepository, IUserRepository userRepository, IMovieRepository movieRepository, IFavoriteRepository favoriteRepository)
         {
             _userRepository = userRepository;
             _purchaseRepository = purchaseRepository;
             _movieRepository = movieRepository;
+            _favoriteRepository = favoriteRepository;
+        }
+
+        public async Task<bool> FavoriteExists(int id, int movieId)
+        {
+            var favorite = await _favoriteRepository.GetFavoriteById(id, movieId);
+
+            return favorite == null ? false : true;
         }
 
         public async Task<IEnumerable<PurchaseRequestModel>> GetAllPurchasesForUserId(int id)

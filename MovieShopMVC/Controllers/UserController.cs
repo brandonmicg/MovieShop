@@ -47,9 +47,13 @@ namespace MovieShopMVC.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddFavorite()
+        public async Task<IActionResult> AddFavorite(int movieId)
         {
-            return View();
+            //check if already favorited
+
+            //update favorite based on current favorited status
+
+            return RedirectToAction("Details", "Movies", new { id = movieId });
         }
 
         //Buy for user to buy a movie, when user click on Purchase button in Movie Details Page Purchase Confirmation Popup

@@ -1,8 +1,7 @@
-﻿@*@using MovieShopMVC.Services*@
+﻿
 @model ApplicationCore.Models.MovieDetailsModel
 
 
-@*@inject CurrentLoggedInUser currentUser*@
 <style>
     .movie-facts .list-group-item {
         border-color: black;
@@ -70,13 +69,12 @@
                     }
                     else
                     {
-                        //var active = currentUser.IsAuthenticated ? "" : "disabled";
-
                         <button class="btn btn-light mb-4 " data-bs-toggle="modal" data-bs-target="#purchaseModal">
                             BUY $@Model.Price
                         </button>
                     }
 
+                    @await Component.InvokeAsync("Favorite", new {movieId = @Model.Id})
 
                     <!-- Modals -->
                     <!-- Review -->
