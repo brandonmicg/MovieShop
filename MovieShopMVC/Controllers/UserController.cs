@@ -67,7 +67,7 @@ namespace MovieShopMVC.Controllers
             var review = await _userService.GetReview(userId, model.MovieId);
 
             //if review exists, add review
-            if(review == null)
+            if(review.UserId == 0)
             {
                 var res = await _userService.AddMovieReview(model);
             }
@@ -90,7 +90,7 @@ namespace MovieShopMVC.Controllers
             var review = await _userService.GetReview(userId, model.MovieId);
 
             //if review exists, delete review
-            if(review != null)
+            if(review.UserId > 0)
             {
                 var res = await _userService.DeleteMovieReview(userId, model.MovieId);
             }

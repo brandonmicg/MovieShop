@@ -44,7 +44,7 @@ namespace Infrastructure.Repository
             throw new NotImplementedException();
         }
 
-        public Task<T> Update(T entity)
+        public virtual Task<T> Update(T entity)
         {
             throw new NotImplementedException();
         }

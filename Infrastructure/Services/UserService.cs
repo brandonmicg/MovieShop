@@ -56,7 +56,7 @@ namespace Infrastructure.Services
 
             var saved = await _reviewRepository.Add(newReview);
 
-            if (saved.User != null)
+            if (saved.UserId > 0)
                 return true;
 
             return false;
