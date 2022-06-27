@@ -1,0 +1,42 @@
+﻿@model ApplicationCore.Models.ReviewRequestModel
+
+
+<div class="modal fade"
+     id="reviewModal"
+     tabindex="-1"
+     aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    What did you think?
+                </h5>
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <form asp-controller="User" asp-action="ReviewAction">              
+                <input type="hidden" asp-for="MovieId" value="@Model.MovieId" /> 
+                <input type="hidden" asp-for="UserId" value="@Model.UserId" />
+                <div class="modal-body d-flex">
+                    <select class="form-select me-2 w-25" asp-for="Rating">
+                        @for (int i = 1; i <= 10; i++)
+                        {
+                            var isDef = i == Model.Rating ? "selected" : "";
+                            <option isDef value="@i">@i</option>
+                        }
+                    </select>
+                    <div class="input-group">
+                        <textarea class="form-control" asp-for="ReviewText"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-danger" name="submitButton" value="Delete" />
+                    <input type="submit" class="btn btn-primary" name="submitButton" value="Submit" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

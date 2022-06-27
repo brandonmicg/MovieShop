@@ -27,6 +27,13 @@ namespace MovieShopMVC.Controllers
             {
                 userId = _currentLoggedInUser.UserId;
                 reviewModel = await _userService.GetReview(userId, id);
+
+                if(reviewModel.UserId == 0)
+                {
+                    reviewModel.UserId = userId;
+                    reviewModel.MovieId = id;
+                }
+                    
             }
 
             var movie = await _movieService.GetMovieDetails(id, userId);

@@ -44,9 +44,32 @@ namespace Infrastructure.Services
             return false;
         }
 
-        public Task<bool> AddMovieReview(ReviewRequestModel reviewRequest)
+        public async Task<bool> AddMovieReview(ReviewRequestModel reviewRequest)
         {
-            throw new NotImplementedException();
+            var newReview = new Review
+            {
+                MovieId = reviewRequest.MovieId,
+                UserId = reviewRequest.UserId,
+                Rating = reviewRequest.Rating,
+                ReviewText = reviewRequest.ReviewText
+            };
+
+            var saved = await _reviewRepository.Add(newReview);
+
+            if (saved.User != null)
+                return true;
+
+            return false;
+        }
+
+        public async Task<bool> DeleteMovieReview(int userId, int movieId)
+        {
+            var removed = await _reviewRepository.Delete(new Review { UserId = userId, MovieId = movieId});
+
+            if (removed.UserId > 0)
+                return false;
+
+            return true;
         }
 
         public async Task<bool> FavoriteExists(int id, int movieId)
@@ -164,8 +187,6 @@ namespace Infrastructure.Services
 
         public async Task<bool> RemoveFavorite(FavoriteRequestModel favoriteRequest)
         {
-
-
             var remFavorite = new Favorite
             {
                 Id = favoriteRequest.Id,
@@ -180,6 +201,24 @@ namespace Infrastructure.Services
                 return false;
 
             return true;
+        }
+
+        public async Task<bool> UpdateMovieReview(ReviewRequestModel reviewRequest)
+        {
+            var updReview = new Review
+            {
+                MovieId = reviewRequest.MovieId,
+                UserId = reviewRequest.UserId,
+                Rating = reviewRequest.Rating,
+                ReviewText = reviewRequest.ReviewText
+            };
+
+            var saved = await _reviewRepository.Update(updReview);
+
+            if (saved.User != null)
+                return true;
+
+            return false;
         }
     }
 }

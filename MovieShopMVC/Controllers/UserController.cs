@@ -43,11 +43,60 @@ namespace MovieShopMVC.Controllers
             return View(movies);
         }
 
-        //Review for user to add a new Review, when user clicks on Review button in Movie Details Page and Review Confirmation Popup
         [HttpPost]
-        public async Task<IActionResult> AddReview()
+        public async Task<IActionResult> ReviewAction(ReviewRequestModel model, string submitButton)
         {
-            return View();
+            switch (submitButton)
+            {
+                case "Submit":
+                    return await AddReview(model);
+                case "Delete":
+                    return await DeleteReview(model);
+            }
+
+            return LocalRedirect("~/");
+        }
+
+        //Review for user to add a new Review, when user clicks on Review button in Movie Details Page and Review Confirmation Popup
+        //[HttpPost]
+        public async Task<IActionResult> AddReview(ReviewRequestModel model)
+        {
+            
+            //get review for user and movie
+            var userId = _currentLoggedInUser.UserId;
+            var review = await _userService.GetReview(userId, model.MovieId);
+
+            //if review exists, add review
+            if(review == null)
+            {
+                var res = await _userService.AddMovieReview(model);
+            }
+            else
+            {
+                //else, update review
+                var res = await _userService.UpdateMovieReview(model);
+            }
+            
+
+            return RedirectToAction("Details", "Movies", new { id = model.MovieId });
+        }
+
+        //[HttpPost]
+        public async Task<IActionResult> DeleteReview(ReviewRequestModel model)
+        {
+            
+            //get review for user and movie
+            var userId = _currentLoggedInUser.UserId;
+            var review = await _userService.GetReview(userId, model.MovieId);
+
+            //if review exists, delete review
+            if(review != null)
+            {
+                var res = await _userService.DeleteMovieReview(userId, model.MovieId);
+            }
+            
+
+            return RedirectToAction("Details", "Movies", new { id = model.MovieId });
         }
 
         [HttpPost]

@@ -21,8 +21,8 @@ namespace ApplicationCore.Services
         Task<IEnumerable<MovieCardModel>> GetAllFavoritesForUser(int id);
         Task<bool> AddMovieReview(ReviewRequestModel reviewRequest);
         Task<ReviewRequestModel> GetReview(int userId, int movieId);
-        //Task<> UpdateMovieReview(ReviewRequestModel reviewRequest);
-        //Task<> DeleteMovieReview(int userId, int movieId);
+        Task<bool> UpdateMovieReview(ReviewRequestModel reviewRequest);
+        Task<bool> DeleteMovieReview(int userId, int movieId);
         //Task<> GetAllReviewsByUser(int id);
     }
 }
