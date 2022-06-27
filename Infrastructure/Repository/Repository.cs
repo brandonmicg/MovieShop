@@ -28,7 +28,7 @@ namespace Infrastructure.Repository
 
         public virtual async Task<T> Delete(T entity)
         {
-            _dbContext.Set<T>().Remove(entity);
+            _dbContext.Entry(entity).State = EntityState.Deleted;
             
             await _dbContext.SaveChangesAsync();
             return entity;
@@ -44,9 +44,11 @@ namespace Infrastructure.Repository
             throw new NotImplementedException();
         }
 
-        public virtual Task<T> Update(T entity)
+        public virtual async Task<T> Update(T entity)
         {
-            throw new NotImplementedException();
+            _dbContext.Entry(entity).State = EntityState.Modified;
+            await _dbContext.SaveChangesAsync();
+            return entity;
         }
     }
 }
