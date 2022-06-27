@@ -48,6 +48,26 @@ namespace Infrastructure.Services
             return favorite == null ? false : true;
         }
 
+        public async Task<IEnumerable<MovieCardModel>> GetAllFavoritesForUser(int id)
+        {
+            List<MovieCardModel> movieModels = new List<MovieCardModel>();
+
+            var movies = await _favoriteRepository.GetAllFavoriteMoviesByUserId(id);
+
+            foreach (var movie in movies)
+            {
+                movieModels.Add(new MovieCardModel
+                {
+                    Id = movie.MovieId,
+                    Title = movie.Movie.Title,
+                    PosterUrl = movie.Movie.PosterUrl
+                });
+            }
+
+            return movieModels;
+
+        }
+
         public async Task<IEnumerable<PurchaseRequestModel>> GetAllPurchasesForUserId(int id)
         {
             var purchaseRequests = new List<PurchaseRequestModel>();

@@ -36,7 +36,11 @@ namespace MovieShopMVC.Controllers
         [HttpGet]
         public async Task<IActionResult> Favorites()
         {
-            return View();
+            var userId = _currentLoggedInUser.UserId;
+
+            var movies = await _userService.GetAllFavoritesForUser(userId);
+
+            return View(movies);
         }
 
         //Review for user to add a new Review, when user clicks on Review button in Movie Details Page and Review Confirmation Popup
