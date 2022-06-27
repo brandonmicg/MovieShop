@@ -50,9 +50,29 @@ namespace MovieShopMVC.Controllers
         public async Task<IActionResult> AddFavorite(int movieId)
         {
             //check if already favorited
+            var userId = _currentLoggedInUser.UserId;
+            var favorited = await _userService.FavoriteExists(userId, movieId);
+
+            var model = new FavoriteRequestModel
+            {
+                MovieId = movieId,
+                UserId = userId
+            };
 
             //update favorite based on current favorited status
+            if (favorited)
+            {
 
+                var fav = await _userService.GetFavoriteById(userId, movieId);
+                model.Id = fav.Id;
+                var res = await _userService.RemoveFavorite(model);
+            }
+            else
+            {
+                var res = await _userService.AddFavorite(model);
+            }
+
+            
             return RedirectToAction("Details", "Movies", new { id = movieId });
         }
 

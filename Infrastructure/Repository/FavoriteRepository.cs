@@ -21,5 +21,24 @@ namespace Infrastructure.Repository
             var favorite = await _dbContext.Favorites.FirstOrDefaultAsync(x => x.UserId == userId && x.MovieId == movieId);
             return favorite;
         }
+
+        public override async Task<Favorite> Delete(Favorite entity)
+        {
+            var local = _dbContext.Set<Favorite>()
+                .Local
+                .FirstOrDefault(x => x.Id == entity.Id);
+
+            if (local != null)
+            {
+                _dbContext.Entry(local).State = EntityState.Detached;
+            }
+
+            _dbContext.Set<Favorite>().Remove(entity);
+
+            await _dbContext.SaveChangesAsync();
+
+            return entity;
+        }
+
     }
 }

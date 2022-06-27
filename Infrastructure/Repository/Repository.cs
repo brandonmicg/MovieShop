@@ -1,4 +1,5 @@
 ﻿using ApplicationCore.Contracts.Repositories;
+using ApplicationCore.Entities;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -25,9 +26,12 @@ namespace Infrastructure.Repository
             return entity;
         }
 
-        public Task<T> Delete(T entity)
+        public virtual async Task<T> Delete(T entity)
         {
-            throw new NotImplementedException();
+            _dbContext.Set<T>().Remove(entity);
+            
+            await _dbContext.SaveChangesAsync();
+            return entity;
         }
 
         public async Task<IEnumerable<T>> GetAll()

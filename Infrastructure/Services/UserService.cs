@@ -25,6 +25,22 @@ namespace Infrastructure.Services
             _favoriteRepository = favoriteRepository;
         }
 
+        public async Task<bool> AddFavorite(FavoriteRequestModel favoriteRequest)
+        {
+            var newFavorite = new Favorite
+            {
+                MovieId = favoriteRequest.MovieId,
+                UserId = favoriteRequest.UserId
+            };
+
+            var saved = await _favoriteRepository.Add(newFavorite);
+
+            if (saved.Id > 1)
+                return true;
+
+            return false;
+        }
+
         public async Task<bool> FavoriteExists(int id, int movieId)
         {
             var favorite = await _favoriteRepository.GetFavoriteById(id, movieId);
@@ -52,6 +68,12 @@ namespace Infrastructure.Services
              }
 
             return purchaseRequests;
+        }
+
+        public async Task<Favorite> GetFavoriteById(int userId, int movieId)
+        {
+            var favorite = await _favoriteRepository.GetFavoriteById(userId, movieId);
+            return favorite;
         }
 
         public async Task<bool> IsMoviePurchased(PurchaseRequestModel purchaseRequest, int userId)
@@ -92,6 +114,26 @@ namespace Infrastructure.Services
                 return true;
 
             return false;
+        }
+
+        public async Task<bool> RemoveFavorite(FavoriteRequestModel favoriteRequest)
+        {
+
+
+            var remFavorite = new Favorite
+            {
+                Id = favoriteRequest.Id,
+                MovieId = favoriteRequest.MovieId,
+                UserId = favoriteRequest.UserId
+            };
+
+            var removed = await _favoriteRepository.Delete(remFavorite);
+
+            
+            if (removed.Id > 0)
+                return false;
+
+            return true;
         }
     }
 }
