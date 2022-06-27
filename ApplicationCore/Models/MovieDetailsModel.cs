@@ -35,5 +35,6 @@ namespace ApplicationCore.Models
         public List<GenreModel> Genres { get; set; }
         public List<CastModel> Casts { get; set; }
         public List<TrailerModel> Trailers { get; set; }
+        public ReviewRequestModel Review { get; set; }
     }
 }

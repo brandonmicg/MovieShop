@@ -1,4 +1,5 @@
-﻿using ApplicationCore.Services;
+﻿using ApplicationCore.Models;
+using ApplicationCore.Services;
 using Microsoft.AspNetCore.Mvc;
 using MovieShopMVC.Services;
 
@@ -8,18 +9,29 @@ namespace MovieShopMVC.Controllers
     {
         private readonly ICurrentLoggedInUser _currentLoggedInUser;
         private readonly IMovieService _movieService;
+        private readonly IUserService _userService;
 
-        public MoviesController(IMovieService movieService, ICurrentLoggedInUser currentLoggedInUser)
+        public MoviesController(IMovieService movieService, ICurrentLoggedInUser currentLoggedInUser, IUserService userService)
         {
             _movieService = movieService;
             _currentLoggedInUser = currentLoggedInUser;
+            _userService = userService;
         }
 
         public async Task<IActionResult> Details(int id)
         {
-            var userId = _currentLoggedInUser.IsAuthenticated ? _currentLoggedInUser.UserId : -1;
+            var userId = - 1;
+            var reviewModel = new ReviewRequestModel { Rating = 0, ReviewText = "" };
 
-            var movie = await _movieService.GetMovieDetails(id, userId);                 
+            if (this.HttpContext.User.Identity.IsAuthenticated)
+            {
+                userId = _currentLoggedInUser.UserId;
+                reviewModel = await _userService.GetReview(userId, id);
+            }
+
+            var movie = await _movieService.GetMovieDetails(id, userId);
+            movie.Review = reviewModel;
+            
 
             return View(movie);
         }

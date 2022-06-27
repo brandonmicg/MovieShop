@@ -16,13 +16,16 @@ namespace Infrastructure.Services
         private readonly IPurchaseRepository _purchaseRepository;
         private readonly IMovieRepository _movieRepository;
         private readonly IFavoriteRepository _favoriteRepository;
+        private readonly IReviewRepository _reviewRepository;
 
-        public UserService(IPurchaseRepository purchaseRepository, IUserRepository userRepository, IMovieRepository movieRepository, IFavoriteRepository favoriteRepository)
+        public UserService(IPurchaseRepository purchaseRepository, IUserRepository userRepository, 
+            IMovieRepository movieRepository, IFavoriteRepository favoriteRepository, IReviewRepository reviewRepository)
         {
             _userRepository = userRepository;
             _purchaseRepository = purchaseRepository;
             _movieRepository = movieRepository;
             _favoriteRepository = favoriteRepository;
+            _reviewRepository = reviewRepository;
         }
 
         public async Task<bool> AddFavorite(FavoriteRequestModel favoriteRequest)
@@ -39,6 +42,11 @@ namespace Infrastructure.Services
                 return true;
 
             return false;
+        }
+
+        public Task<bool> AddMovieReview(ReviewRequestModel reviewRequest)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<bool> FavoriteExists(int id, int movieId)
@@ -94,6 +102,24 @@ namespace Infrastructure.Services
         {
             var favorite = await _favoriteRepository.GetFavoriteById(userId, movieId);
             return favorite;
+        }
+
+        public async Task<ReviewRequestModel> GetReview(int userId, int movieId)
+        {
+            var review = await _reviewRepository.GetReview(userId, movieId);
+
+            if (review == null)
+                return new ReviewRequestModel { Rating = 0, ReviewText = ""};
+
+            var model = new ReviewRequestModel
+            {
+                MovieId = review.MovieId,
+                UserId = review.UserId,
+                Rating = review.Rating,
+                ReviewText = review.ReviewText,
+            };
+
+            return model;
         }
 
         public async Task<bool> IsMoviePurchased(PurchaseRequestModel purchaseRequest, int userId)

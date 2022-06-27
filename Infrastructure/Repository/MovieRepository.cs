@@ -59,7 +59,7 @@ namespace Infrastructure.Repository
             var movieDetails = await _dbContext.Movies
                 .Include(m => m.GenresOfMovies).ThenInclude(m => m.Genre)
                 .Include(m => m.Trailers)
-                .Include(m => m.CastOfMovies).ThenInclude(m => m.Cast)
+                .Include(m => m.CastOfMovies).ThenInclude(m => m.Cast)             
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             return movieDetails;

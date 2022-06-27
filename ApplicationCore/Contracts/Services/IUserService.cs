@@ -19,7 +19,8 @@ namespace ApplicationCore.Services
         Task<bool> FavoriteExists(int id, int movieId);
         Task<Favorite> GetFavoriteById(int userId, int movieId);
         Task<IEnumerable<MovieCardModel>> GetAllFavoritesForUser(int id);
-        //Task<> AddMovieReview(ReviewRequestModel reviewRequest);
+        Task<bool> AddMovieReview(ReviewRequestModel reviewRequest);
+        Task<ReviewRequestModel> GetReview(int userId, int movieId);
         //Task<> UpdateMovieReview(ReviewRequestModel reviewRequest);
         //Task<> DeleteMovieReview(int userId, int movieId);
         //Task<> GetAllReviewsByUser(int id);
