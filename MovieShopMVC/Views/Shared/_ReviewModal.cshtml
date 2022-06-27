@@ -24,8 +24,14 @@
                     <select class="form-select me-2 w-25" asp-for="Rating">
                         @for (int i = 1; i <= 10; i++)
                         {
-                            var isDef = i == Model.Rating ? "selected" : "";
-                            <option isDef value="@i">@i</option>
+                            if(i == Model.Rating)
+                            {
+                                <option selected value="@i">@i</option>
+                            }
+                            else
+                            {
+                                <option value="@i">@i</option>
+                            }                                                    
                         }
                     </select>
                     <div class="input-group">
