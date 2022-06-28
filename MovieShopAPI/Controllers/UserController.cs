@@ -24,7 +24,13 @@ namespace MovieShopAPI.Controllers
         [Route("details")]
         public async Task<IActionResult> GetUserDetails()
         {
-            return Ok();
+            var userId = _currentLoggedInUser.UserId;
+            var user = _userService.GetUserDetailsById(userId);
+
+            if(user == null)
+                return NotFound(new { errorMessage = "User not found" });
+
+            return Ok(user);
         }
 
         //public async Task<IActionResult> CheckMoviePurchased()

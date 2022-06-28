@@ -145,6 +145,25 @@ namespace Infrastructure.Services
             return model;
         }
 
+        public async Task<UserModel> GetUserDetailsById(int id)
+        {
+            var user = await _userRepository.GetById(id);
+
+            if (user == null || !(user.Id > 0))
+                return null;
+
+            var model = new UserModel
+            {
+                Id = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                DateOfBirth = (DateTime)user.DateOfBirth
+            };
+
+            return model;
+        }
+
         public async Task<bool> IsMoviePurchased(PurchaseRequestModel purchaseRequest, int userId)
         {
             return await _purchaseRepository.CheckIfPurchaseExists(userId, purchaseRequest.MovieId);
