@@ -83,6 +83,20 @@ namespace Infrastructure.Repository
             return movieDetails;
         }
 
+        public async Task<PagedResultSetModel<Movie>> GetMovies(int pageSize = 30, int pageNumber = 1, int paginationRange = 5)
+        {
+            var totalMovies = await _dbContext.Movies.CountAsync();
+
+            var movies = await _dbContext.Movies
+                .OrderByDescending(m => m.Revenue)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize).ToListAsync();
+
+            var pagedMovies = new PagedResultSetModel<Movie>(pageNumber, totalMovies, pageSize, movies, paginationRange);
+
+            return pagedMovies;
+        }
+
         public async Task<PagedResultSetModel<Movie>> GetMoviesByGenre(int genreId, int pageSize = 30, int pageNumber = 1, int paginationRange = 5)
         {
             var totalMoviesForGenre = await _dbContext.MovieGenres.Where(m => m.GenreId == genreId).CountAsync();

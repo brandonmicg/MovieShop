@@ -63,3 +63,6 @@ C:\Users\Brandon\Source\Repos\MovieShop\MovieShopAPI\obj\Debug\net6.0\refint\Mov
 C:\Users\Brandon\Source\Repos\MovieShop\MovieShopAPI\obj\Debug\net6.0\MovieShopAPI.pdb
 C:\Users\Brandon\Source\Repos\MovieShop\MovieShopAPI\obj\Debug\net6.0\MovieShopAPI.genruntimeconfig.cache
 C:\Users\Brandon\Source\Repos\MovieShop\MovieShopAPI\obj\Debug\net6.0\ref\MovieShopAPI.dll
+C:\Users\Brandon\Source\Repos\MovieShop\MovieShopAPI\bin\Debug\net6.0\Microsoft.DotNet.PlatformAbstractions.dll
+C:\Users\Brandon\Source\Repos\MovieShop\MovieShopAPI\bin\Debug\net6.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\Brandon\Source\Repos\MovieShop\MovieShopAPI\bin\Debug\net6.0\Newtonsoft.Json.dll

@@ -55,17 +55,35 @@ namespace MovieShopAPI.Controllers
             return Ok(movie);
         }
 
-        /*
+        
         [HttpGet]
         [Route("")]
         public async Task<IActionResult> GetMovies(int pageSize = 30, int pageIndex = 1)
         {
+            var movies = await _movieService.GetMovies(pageSize, pageIndex);
 
+            if (movies == null || movies.PagedData == null || !movies.PagedData.Any())
+            {
+                return NotFound(new { errorMessage = "No Movies Found" });
+            }
+
+            return Ok(movies);
         }
-        */
-        
 
-        //public async Task<IActionResult> GetMoviesOfGenre(int genreId, int pageSize = 30, int pageIndex = 1)
+
+        [HttpGet]
+        [Route("genre/{genreId:int}")]
+        public async Task<IActionResult> GetMoviesOfGenre(int genreId, int pageSize = 30, int pageIndex = 1)
+        {
+            var movies = await _movieService.GetMoviesByGenre(genreId, pageSize, pageIndex);
+
+            if (movies == null || movies.PagedData == null || !movies.PagedData.Any())
+            {
+                return NotFound(new { errorMessage = "No Movies Found" });
+            }
+
+            return Ok(movies);
+        }
 
         //public async Task<IActionResult> GetMovieReviews(int id, int pageSize = 30, int pageIndex = 1)
     }
