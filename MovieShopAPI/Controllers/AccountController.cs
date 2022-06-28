@@ -41,7 +41,8 @@ namespace MovieShopAPI.Controllers
                 var jwtToken = CreateJwtToken(user);
                 return Ok( new { token = jwtToken});
             }
-                
+
+            throw new UnauthorizedAccessException("Please check email and password");
 
             return Unauthorized(new { errorMessage = "Please check email and password" });
 
@@ -84,6 +85,16 @@ namespace MovieShopAPI.Controllers
             return tokenHandler.WriteToken(encodedJwt);
         }
 
-        //public async Task<IActionResult> CheckEmail()
+        [HttpGet]
+        [Route("check-email")]
+        public async Task<IActionResult> CheckEmail(string email)
+        {
+            var exists = await _accountService.EmailExists(email);
+
+            if (!exists)
+                return NotFound();
+
+            return Ok();
+        }
     }
 }

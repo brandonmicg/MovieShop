@@ -4,7 +4,12 @@ using ApplicationCore.Services;
 using Infrastructure.Data;
 using Infrastructure.Repository;
 using Infrastructure.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using MovieShopAPI.Middlewares;
+using MovieShopAPI.Services;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,11 +32,26 @@ builder.Services.AddScoped<IPurchaseRepository, PurchaseRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IFavoriteRepository, FavoriteRepository>();
 builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
+builder.Services.AddScoped<ICurrentLoggedInUser, CurrentLoggedInUser>();
+
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddDbContext<MovieShopDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("MovieShopConnection"));
 });
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateAudience = false,
+            ValidateIssuer = false,
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["secretKey"]))
+        };
+    });
 
 var app = builder.Build();
 
@@ -42,8 +62,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseMovieShopExceptionMiddleware();
 app.UseHttpsRedirection();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

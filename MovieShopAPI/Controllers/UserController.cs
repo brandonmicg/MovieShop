@@ -1,20 +1,48 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using ApplicationCore.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MovieShopAPI.Services;
 
 namespace MovieShopAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class UserController : ControllerBase
     {
+        private readonly IUserService _userService;
+        private readonly ICurrentLoggedInUser _currentLoggedInUser;
 
-        //public async Task<IActionResult> GetUserDetails()
+        public UserController(ICurrentLoggedInUser currentLoggedInUser, IUserService userService)
+        {
+            _currentLoggedInUser = currentLoggedInUser;
+            _userService = userService;
+        }
+
+        [HttpGet]
+        [Route("details")]
+        public async Task<IActionResult> GetUserDetails()
+        {
+            return Ok();
+        }
 
         //public async Task<IActionResult> CheckMoviePurchased()
 
         //public async Task<IActionResult> PurchaseMovie()
 
-        //public async Task<IActionResult> GetUserPurchasedMovies()
+        [HttpGet]
+        [Route("purchases")]
+        public async Task<IActionResult> GetUserPurchasedMovies()
+        {
+            var userId = _currentLoggedInUser.UserId;
+            var movies = await _userService.GetAllPurchasesForUserId(userId);
+
+            if(movies == null || !movies.Any())
+                return NotFound(new {errorMessage = "Movies not found"});
+
+            return Ok(movies);
+        }
 
         //public async Task<IActionResult> AddFavorite()
 
