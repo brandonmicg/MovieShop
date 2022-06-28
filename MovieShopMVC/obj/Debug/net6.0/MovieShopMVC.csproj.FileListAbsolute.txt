@@ -267,3 +267,6 @@ C:\Users\Brandon\Source\Repos\MovieShop\MovieShopMVC\bin\Debug\net6.0\runtimes\w
 C:\Users\Brandon\Source\Repos\MovieShop\MovieShopMVC\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
 C:\Users\Brandon\Source\Repos\MovieShop\MovieShopMVC\bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.Internal.dll
 C:\Users\Brandon\Source\Repos\MovieShop\MovieShopMVC\bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:\Users\Brandon\Source\Repos\MovieShop\MovieShopMVC\obj\Debug\net6.0\MovieShopMVC.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Brandon\Source\Repos\MovieShop\MovieShopMVC\bin\Debug\net6.0\Microsoft.DotNet.PlatformAbstractions.dll
+C:\Users\Brandon\Source\Repos\MovieShop\MovieShopMVC\bin\Debug\net6.0\Microsoft.Extensions.DependencyModel.dll

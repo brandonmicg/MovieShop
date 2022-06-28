@@ -19,7 +19,7 @@ namespace MovieShopMVC.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var movies = await _movieService.GetTopGrossingMovies();
+            var movies = await _movieService.GetTopGrossingMovies();           
 
             return View(movies);
         }

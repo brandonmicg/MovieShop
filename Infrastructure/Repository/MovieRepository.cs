@@ -26,7 +26,7 @@ namespace Infrastructure.Repository
         public async Task<IEnumerable<Movie>> Get30HighestRatedMovies()
         {
             //get id's of movies with best averaged rating
-            var avgRatingIds = await _dbContext.Reviews
+            var avgRatingIds = _dbContext.Reviews
                 .GroupBy(g => g.MovieId, r => r.Rating)
                 .Select(g => new
                 {
@@ -34,12 +34,30 @@ namespace Infrastructure.Repository
                     AvgRating = g.Average()
                 })
                 .OrderByDescending(x => x.AvgRating)
-                .Take(30).ToListAsync();
+                .Take(30);
 
             //get all movies from db with ids from avgRating list
+            /*
             var movies = await _dbContext.Movies
                 .Where(x => avgRatingIds
-                .All(r => r.MovieId == x.Id)).ToListAsync();
+                .Any(r => r.MovieId == x.Id)).ToListAsync();
+            */
+
+            
+            var movies = await _dbContext.Movies
+            .Join(
+            avgRatingIds,
+            movie => movie.Id,
+            avg => avg.MovieId,
+            (movie, avg) => new
+            {
+                Movie = movie,
+                Rating = avg.AvgRating
+            })
+            .OrderByDescending(m => m.Rating)
+            .Select(m => m.Movie)
+            .ToListAsync();
+            
 
             return movies;
         }

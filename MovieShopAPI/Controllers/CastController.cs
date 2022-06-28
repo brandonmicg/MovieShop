@@ -7,5 +7,7 @@ namespace MovieShopAPI.Controllers
     [ApiController]
     public class CastController : ControllerBase
     {
+
+        //public async Task<IActionResult> GetCastDetails(int id)
     }
 }

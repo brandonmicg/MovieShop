@@ -30,6 +30,20 @@ namespace MovieShopAPI.Controllers
         }
 
         [HttpGet]
+        [Route("top-rated")]
+        public async Task<IActionResult> GetTopRatedMovies()
+        {
+            var movies = await _movieService.GetTopRatedMovies();
+
+            if (movies == null || !movies.Any())
+            {
+                return NotFound(new { errorMessage = "No Movies Found" });
+            }
+
+            return Ok(movies);
+        }
+
+        [HttpGet]
         [Route("{id:int}")]
         public async Task<IActionResult> GetMovie(int id)
         {
@@ -40,5 +54,19 @@ namespace MovieShopAPI.Controllers
 
             return Ok(movie);
         }
+
+        /*
+        [HttpGet]
+        [Route("")]
+        public async Task<IActionResult> GetMovies(int pageSize = 30, int pageIndex = 1)
+        {
+
+        }
+        */
+        
+
+        //public async Task<IActionResult> GetMoviesOfGenre(int genreId, int pageSize = 30, int pageIndex = 1)
+
+        //public async Task<IActionResult> GetMovieReviews(int id, int pageSize = 30, int pageIndex = 1)
     }
 }

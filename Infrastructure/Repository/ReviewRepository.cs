@@ -30,6 +30,7 @@ namespace Infrastructure.Repository
             return review;
         }
 
+        
         public async override Task<Review> Delete(Review entity)
         {
             var local = _dbContext.Set<Review>()
@@ -65,7 +66,5 @@ namespace Infrastructure.Repository
 
             return entity;
         }
-
-
     }
 }

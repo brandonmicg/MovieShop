@@ -7,5 +7,11 @@ namespace MovieShopAPI.Controllers
     [ApiController]
     public class AdminController : ControllerBase
     {
+
+        //public async Task<IActionResult> CreateMovie()
+
+        //public async Task<IActionResult> UpdateMovieDetails()
+
+        //public async Task<IActionResult> GetTopPurchasedMovies()
     }
 }

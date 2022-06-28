@@ -24,5 +24,9 @@ namespace MovieShopAPI.Controllers
 
             return Ok(user);
         }
+
+        //public async Task<IActionResult> Login()
+
+        //public async Task<IActionResult> CheckEmail()
     }
 }

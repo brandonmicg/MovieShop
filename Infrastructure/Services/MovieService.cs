@@ -14,11 +14,13 @@ namespace Infrastructure.Services
         
         private readonly IMovieRepository _movieRepository;
         private readonly IPurchaseRepository _purchaseRepository;
+        private readonly IReviewRepository _reviewRepository;
 
-        public MovieService(IMovieRepository movieRepository, IPurchaseRepository purchaseRepository)
+        public MovieService(IMovieRepository movieRepository, IPurchaseRepository purchaseRepository, IReviewRepository reviewRepository)
         {
             _movieRepository = movieRepository;
             _purchaseRepository = purchaseRepository;
+            _reviewRepository = reviewRepository;
         }
 
         public async Task<MovieDetailsModel> GetMovieDetails(int id, int userId = -1)
@@ -92,6 +94,18 @@ namespace Infrastructure.Services
 
             return movieCards;
         }
-        
+
+        public async Task<List<MovieCardModel>> GetTopRatedMovies()
+        {
+            var movieCards = new List<MovieCardModel>();
+            var movies = await _movieRepository.Get30HighestRatedMovies();
+
+            foreach (var movie in movies)
+            {
+                movieCards.Add(new MovieCardModel() { Id = movie.Id, PosterUrl = movie.PosterUrl, Title = movie.Title });
+            }
+
+            return movieCards;
+        }
     }
 }
