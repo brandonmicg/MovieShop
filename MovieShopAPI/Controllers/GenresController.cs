@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using ApplicationCore.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MovieShopAPI.Controllers
@@ -7,6 +8,24 @@ namespace MovieShopAPI.Controllers
     [ApiController]
     public class GenresController : ControllerBase
     {
-        //public async Task<IActionResult> GetGenres()
+        private readonly IGenreService _genreService;
+
+        public GenresController(IGenreService genreService)
+        {
+            _genreService = genreService;
+        }
+
+        [HttpGet]
+        [Route("")]
+        public async Task<IActionResult> GetGenres()
+        {
+            var genres = await _genreService.GetAllGenres();
+
+            if(genres == null || !genres.Any())
+                return NotFound(new { errorMessage = "No Genres Found" });
+
+
+            return Ok(genres);
+        }
     }
 }

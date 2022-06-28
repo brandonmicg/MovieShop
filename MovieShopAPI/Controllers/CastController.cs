@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using ApplicationCore.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MovieShopAPI.Controllers
@@ -7,7 +8,23 @@ namespace MovieShopAPI.Controllers
     [ApiController]
     public class CastController : ControllerBase
     {
+        private readonly ICastService _castService;
 
-        //public async Task<IActionResult> GetCastDetails(int id)
+        public CastController(ICastService castService)
+        {
+            _castService = castService;
+        }
+
+        [HttpGet]
+        [Route("{id:int}")]
+        public async Task<IActionResult> GetCastDetails(int id)
+        {
+            var cast = await _castService.GetCastDetails(id);
+
+            if(cast == null)
+                return NotFound(new {errorMessage = "Cast member not found"});
+
+            return Ok(cast);
+        }
     }
 }
