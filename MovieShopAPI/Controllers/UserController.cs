@@ -75,9 +75,28 @@ namespace MovieShopAPI.Controllers
 
         //public async Task<IActionResult> RemoveFavorite()
 
-        //public async Task<IActionResult> CheckMovieIsFavorited()
+        [HttpGet]
+        [Route("check-movie-favorite/{movieId:int}")]
+        public async Task<IActionResult> CheckMovieIsFavorited(int movieId)
+        {
+            var userId = _currentLoggedInUser.UserId;
+            var favorited = await _userService.FavoriteExists(userId, movieId);
 
-        //public async Task<IActionResult> GetUserFavoriteMovies()
+            return Ok(favorited);
+        }
+
+        [HttpGet]
+        [Route("favorites")]
+        public async Task<IActionResult> GetUserFavoriteMovies()
+        {
+            var userId = _currentLoggedInUser.UserId;
+            var movies = await _userService.GetAllFavoritesForUser(userId);
+
+            if (movies == null || !movies.Any())
+                return NotFound(new { errorMessage = "Movies not found" });
+
+            return Ok(movies);
+        }
 
         //public async Task<IActionResult> AddReview()
 
