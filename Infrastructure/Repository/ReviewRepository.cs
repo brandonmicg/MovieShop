@@ -66,5 +66,14 @@ namespace Infrastructure.Repository
 
             return entity;
         }
+
+        public async Task<IEnumerable<Review>> GetAllReviewsByUser(int id)
+        {
+            var review = await _dbContext.Reviews
+                .Where(x => x.UserId == id)
+                .ToListAsync();
+
+            return review;
+        }
     }
 }

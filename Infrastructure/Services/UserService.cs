@@ -67,9 +67,9 @@ namespace Infrastructure.Services
             var removed = await _reviewRepository.Delete(new Review { UserId = userId, MovieId = movieId});
 
             if (removed.UserId > 0)
-                return false;
+                return true;
 
-            return true;
+            return false;
         }
 
         public async Task<bool> FavoriteExists(int id, int movieId)
@@ -119,6 +119,29 @@ namespace Infrastructure.Services
              }
 
             return purchaseRequests;
+        }
+
+        public async Task<IEnumerable<ReviewRequestModel>> GetAllReviewsByUser(int id)
+        {
+            var reviewModels = new List<ReviewRequestModel>();
+            var reviews = await _reviewRepository.GetAllReviewsByUser(id);
+
+            if (reviews == null || !reviews.Any())
+                return null;
+
+
+            foreach(var review in reviews)
+            {
+                reviewModels.Add(new ReviewRequestModel
+                {
+                    UserId = review.UserId,
+                    MovieId = review.MovieId,
+                    ReviewText = review.ReviewText,
+                    Rating = review.Rating
+                });
+            }
+
+            return reviewModels;
         }
 
         public async Task<Favorite> GetFavoriteById(int userId, int movieId)
@@ -251,7 +274,7 @@ namespace Infrastructure.Services
 
             var saved = await _reviewRepository.Update(updReview);
 
-            if (saved.User != null)
+            if (saved != null)
                 return true;
 
             return false;

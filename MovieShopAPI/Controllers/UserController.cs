@@ -168,12 +168,72 @@ namespace MovieShopAPI.Controllers
             return Ok(movies);
         }
 
-        //public async Task<IActionResult> AddReview()
+        [HttpPost]
+        [Route("add-review")]
+        public async Task<IActionResult> AddReview([FromBody] ReviewRequestModel model)
+        {
+            //get review for user and movie
+            var userId = _currentLoggedInUser.UserId;
+            var review = await _userService.GetReview(userId, model.MovieId);
 
-        //public async Task<IActionResult> EditReview()
+            //if review doesn't exists, add review
+            if (review.UserId == 0)
+            {
+                var res = await _userService.AddMovieReview(model);
+                return Ok(res);
+            }
 
-        //public async Task<IActionResult> DeleteReview()
+            return NotFound(new {message = "Cannot add review"});
+        }
 
-        //public async Task<IActionResult> GetUserReviews()
+        [HttpPut]
+        [Route("edit-review")]
+        public async Task<IActionResult> EditReview([FromBody] ReviewRequestModel model)
+        {
+            //get review for user and movie
+            var userId = _currentLoggedInUser.UserId;
+            var review = await _userService.GetReview(userId, model.MovieId);
+
+            //if review exists, update review
+            if(review.UserId > 0)
+            {
+                var res = await _userService.UpdateMovieReview(model);
+                return Ok(res);
+            }
+
+            return NotFound(new { message = "Cannot update review" });
+        }
+
+        [HttpDelete]
+        [Route("delete-review")]
+        public async Task<IActionResult> DeleteReview([FromBody] ReviewRequestModel model)
+        {
+            //get review for user and movie
+            var userId = _currentLoggedInUser.UserId;
+            var review = await _userService.GetReview(userId, model.MovieId);
+
+            //if review exists, delete review
+            if (review.UserId > 0)
+            {
+                var res = await _userService.DeleteMovieReview(userId, model.MovieId);
+                return Ok(res);
+            }
+
+            return NotFound(new { message = "Cannot delete review" });
+        }
+
+        [HttpGet]
+        [Route("movie-reviews")]
+        public async Task<IActionResult> GetUserReviews()
+        {
+            var userId = _currentLoggedInUser.UserId;
+
+            var reviews = await _userService.GetAllReviewsByUser(userId);
+
+            if (reviews == null || !reviews.Any())
+                return NotFound(new { errorMessage = "No user reviews found" });
+
+            return Ok(reviews);
+        }
     }
 }

@@ -85,6 +85,11 @@ namespace MovieShopAPI.Controllers
             return Ok(movies);
         }
 
-        //public async Task<IActionResult> GetMovieReviews(int id, int pageSize = 30, int pageIndex = 1)
+        [HttpGet]
+        [Route("{id:int}/reviews")]
+        public async Task<IActionResult> GetMovieReviews(int id, int pageSize = 30, int pageIndex = 1)
+        {
+            return Ok();
+        }
     }
 }

@@ -12,5 +12,6 @@ namespace ApplicationCore.Contracts.Repositories
 
         Task<int> GetAverageMovieRating(int movieId);
         Task<Review> GetReview(int userId, int movieId);
+        Task<IEnumerable<Review>> GetAllReviewsByUser(int id);
     }
 }

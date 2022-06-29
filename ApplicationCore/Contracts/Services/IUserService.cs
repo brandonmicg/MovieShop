@@ -24,7 +24,7 @@ namespace ApplicationCore.Services
         Task<ReviewRequestModel> GetReview(int userId, int movieId);
         Task<bool> UpdateMovieReview(ReviewRequestModel reviewRequest);
         Task<bool> DeleteMovieReview(int userId, int movieId);
-        //Task<> GetAllReviewsByUser(int id);
+        Task<IEnumerable<ReviewRequestModel>> GetAllReviewsByUser(int id);
         Task<UserModel> GetUserDetailsById(int id);
     }
 }

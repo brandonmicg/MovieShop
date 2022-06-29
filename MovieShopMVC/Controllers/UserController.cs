@@ -66,7 +66,7 @@ namespace MovieShopMVC.Controllers
             var userId = _currentLoggedInUser.UserId;
             var review = await _userService.GetReview(userId, model.MovieId);
 
-            //if review exists, add review
+            //if review doesn't exists, add review
             if(review.UserId == 0)
             {
                 var res = await _userService.AddMovieReview(model);
