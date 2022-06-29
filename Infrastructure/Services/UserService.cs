@@ -233,10 +233,10 @@ namespace Infrastructure.Services
             var removed = await _favoriteRepository.Delete(remFavorite);
 
             
-            if (removed.Id > 0)
-                return false;
+            if (removed != null || removed.Id > 0)
+                return true;
 
-            return true;
+            return false;
         }
 
         public async Task<bool> UpdateMovieReview(ReviewRequestModel reviewRequest)

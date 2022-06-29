@@ -115,10 +115,35 @@ namespace MovieShopAPI.Controllers
                 return Ok(res);
             }
 
-            return Ok(new { message = "Already favorited this movie"});
+            return Ok(false);
         }
 
-        //public async Task<IActionResult> RemoveFavorite()
+        [HttpDelete]
+        [Route("un-favorite")]
+        public async Task<IActionResult> RemoveFavorite([FromBody] int movieId)
+        {
+            var userId = _currentLoggedInUser.UserId;
+            var favorited = await _userService.FavoriteExists(userId, movieId);
+
+            var model = new FavoriteRequestModel
+            {
+                MovieId = movieId,
+                UserId = userId
+            };
+
+            //update favorite based on current favorited status
+            if (favorited)
+            {
+
+                var fav = await _userService.GetFavoriteById(userId, movieId);
+                model.Id = fav.Id;
+                var res = await _userService.RemoveFavorite(model);
+
+                return Ok(res);
+            }
+
+            return Ok(false);
+        }
 
         [HttpGet]
         [Route("check-movie-favorite/{movieId:int}")]
