@@ -101,6 +101,7 @@ namespace MovieShopAPI.Controllers
         {
             //check if already favorited
             var userId = _currentLoggedInUser.UserId;
+            var favorited = await _userService.FavoriteExists(userId, movieId);
 
             var model = new FavoriteRequestModel
             {
@@ -108,10 +109,13 @@ namespace MovieShopAPI.Controllers
                 UserId = userId
             };
 
-            var res = await _userService.AddFavorite(model);
-            
-            return Ok(res);
+            if (!favorited)
+            {
+                var res = await _userService.AddFavorite(model);
+                return Ok(res);
+            }
 
+            return Ok(new { message = "Already favorited this movie"});
         }
 
         //public async Task<IActionResult> RemoveFavorite()
