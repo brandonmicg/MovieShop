@@ -1,4 +1,5 @@
-﻿using ApplicationCore.Services;
+﻿using ApplicationCore.Models;
+using ApplicationCore.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -56,7 +57,30 @@ namespace MovieShopAPI.Controllers
             return Ok(purchased);
         }
 
-        //public async Task<IActionResult> PurchaseMovie()
+        [HttpPost]
+        [Route("purchase-movie")]
+        public async Task<IActionResult> PurchaseMovie([FromBody] int movieId)
+        {
+            //check if movie already purchased
+            var userId = _currentLoggedInUser.UserId;
+            var purchased = await _userService.IsMoviePurchased(userId, movieId);
+
+            //add to purchase db/user
+            if (!purchased)
+            {
+                var purchaseRequest = new PurchaseRequestModel
+                {
+                    MovieId = movieId,
+                    PurchaseDate = DateTime.Now,
+                };
+
+                var purchase = await _userService.PurchaseMovie(purchaseRequest, userId);
+
+                return Ok(purchase);
+            }
+
+            return Ok(new {message = "User already purchased this movie"});
+        }
 
         [HttpGet]
         [Route("purchases")]
@@ -71,7 +95,24 @@ namespace MovieShopAPI.Controllers
             return Ok(movies);
         }
 
-        //public async Task<IActionResult> AddFavorite()
+        [HttpPost]
+        [Route("favorite")]
+        public async Task<IActionResult> AddFavorite([FromBody] int movieId)
+        {
+            //check if already favorited
+            var userId = _currentLoggedInUser.UserId;
+
+            var model = new FavoriteRequestModel
+            {
+                MovieId = movieId,
+                UserId = userId
+            };
+
+            var res = await _userService.AddFavorite(model);
+            
+            return Ok(res);
+
+        }
 
         //public async Task<IActionResult> RemoveFavorite()
 

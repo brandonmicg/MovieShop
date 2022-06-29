@@ -26,7 +26,7 @@ namespace MovieShopAPI.Controllers
         [Route("register")]
         public async Task<IActionResult> Register([FromBody] UserRegisterModel model)
         {
-            var user = _accountService.RegisterUser(model);
+            var user = await _accountService.RegisterUser(model);
 
             return Ok(user);
         }
@@ -94,7 +94,7 @@ namespace MovieShopAPI.Controllers
             if (!exists)
                 return NotFound();
 
-            return Ok();
+            return Ok(exists);
         }
     }
 }
