@@ -87,7 +87,7 @@ namespace MovieShopAPI.Controllers
 
         [HttpGet]
         [Route("check-email")]
-        public async Task<IActionResult> CheckEmail(string email)
+        public async Task<IActionResult> CheckEmail([FromBody] string email)
         {
             var exists = await _accountService.EmailExists(email);
 

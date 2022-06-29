@@ -1,5 +1,6 @@
 ﻿using ApplicationCore.Contracts.Repositories;
 using ApplicationCore.Entities;
+using ApplicationCore.Models;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -74,6 +75,20 @@ namespace Infrastructure.Repository
                 .ToListAsync();
 
             return review;
+        }
+
+        public async Task<PagedResultSetModel<Review>> GetMovieReviews(int movieId, int pageSize = 30, int pageNumber = 1, int paginationRange = 5)
+        {
+            var totalReviews = await _dbContext.Reviews.CountAsync();
+
+            var reviews = await _dbContext.Reviews
+                .Where(r => r.MovieId == movieId)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize).ToListAsync();
+
+            var pagedReviews = new PagedResultSetModel<Review>(pageNumber, totalReviews, pageSize, reviews, paginationRange);
+
+            return pagedReviews;
         }
     }
 }
