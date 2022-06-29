@@ -1,4 +1,5 @@
 ﻿using ApplicationCore.Entities;
+using ApplicationCore.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -30,6 +31,7 @@ namespace Infrastructure.Data
         public DbSet<Favorite> Favorites { get; set; }
         public DbSet<Purchase> Purchases { get; set; }
 
+        public DbSet<MoviesReportModel> MovieReports { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -40,6 +42,8 @@ namespace Infrastructure.Data
             modelBuilder.Entity<UserRole>(ConfigUserRole);
             modelBuilder.Entity<Review>(ConfigReview);
             modelBuilder.Entity<Movie>(ConfigMovie);
+
+            modelBuilder.Entity<MoviesReportModel>().HasNoKey();
         }
 
         private void ConfigMovieGenre(EntityTypeBuilder<MovieGenre> builder)

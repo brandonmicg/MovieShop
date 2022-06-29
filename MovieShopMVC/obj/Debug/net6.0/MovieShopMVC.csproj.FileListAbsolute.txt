@@ -270,3 +270,4 @@ C:\Users\Brandon\Source\Repos\MovieShop\MovieShopMVC\bin\Debug\net6.0\Microsoft.
 C:\Users\Brandon\Source\Repos\MovieShop\MovieShopMVC\obj\Debug\net6.0\MovieShopMVC.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\Brandon\Source\Repos\MovieShop\MovieShopMVC\bin\Debug\net6.0\Microsoft.DotNet.PlatformAbstractions.dll
 C:\Users\Brandon\Source\Repos\MovieShop\MovieShopMVC\bin\Debug\net6.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\Brandon\Source\Repos\MovieShop\MovieShopMVC\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll

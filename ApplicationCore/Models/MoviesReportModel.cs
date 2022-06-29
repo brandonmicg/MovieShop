@@ -8,5 +8,7 @@ namespace ApplicationCore.Models
 {
     public class MoviesReportModel
     {
+        public string Title { get; set; }    
+        public int PurchaseCount { get; set; }
     }
 }

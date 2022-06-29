@@ -113,5 +113,23 @@ namespace Infrastructure.Repository
 
             return pagedMovies;
         }
+
+        public async override Task<Movie> Update(Movie entity)
+        {
+            var local = _dbContext.Set<Movie>()
+                .Local
+                .FirstOrDefault(x => x.Id == entity.Id);
+
+            if (local != null)
+            {
+                _dbContext.Entry(local).State = EntityState.Detached;
+            }
+
+            _dbContext.Set<Movie>().Update(entity);
+
+            await _dbContext.SaveChangesAsync();
+
+            return entity;
+        }
     }
 }

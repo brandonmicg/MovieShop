@@ -10,6 +10,10 @@ namespace ApplicationCore.Services
 {
     public interface IAdminService
     {
-        Task<IEnumerable<PurchaseRequestModel>> GetTopPurchases([FromQuery] DateTime? fromDate = null, [FromQuery] DateTime? toDate = null, [FromQuery] int pageSize = 30, [FromQuery] int pageIndex = 1);
+        Task<IEnumerable<MoviesReportModel>> GetTopPurchases([FromQuery] DateTime? fromDate = null, [FromQuery] DateTime? toDate = null, [FromQuery] int pageSize = 30, [FromQuery] int pageIndex = 1);
+
+        Task<bool> CreateMovie(MovieCreateRequest createRequest);
+
+        Task<bool> UpdateMovie(MovieCreateRequest createRequest);
     }
 }

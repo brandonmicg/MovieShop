@@ -14,11 +14,11 @@ namespace ApplicationCore.Models
         public string? BackdropUrl { get; set; }
         public string? Overview { get; set; }
         public string? Tagline { get; set; }
-        public string? Budget { get; set; }
-        public string? Revenue { get; set; }
+        public decimal? Budget { get; set; }
+        public decimal? Revenue { get; set; }
         public string? ImdbUrl { get; set; }
         public string? TmdbUrl { get; set; }
-        public string? ReleaseDate { get; set; }
+        public DateTime? ReleaseDate { get; set; }
         public int? RunTime { get; set; }
         public decimal? Price { get; set; }
         public string? OriginalLanguage { get; set; }

@@ -33,6 +33,8 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IFavoriteRepository, FavoriteRepository>();
 builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 builder.Services.AddScoped<ICurrentLoggedInUser, CurrentLoggedInUser>();
+builder.Services.AddScoped<IAdminService, AdminService>();
+builder.Services.AddScoped<IReportRepository, ReportRepository>();
 
 builder.Services.AddHttpContextAccessor();
 

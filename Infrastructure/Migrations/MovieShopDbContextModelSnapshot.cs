@@ -431,6 +431,18 @@ namespace Infrastructure.Migrations
                     b.ToTable("UserRole");
                 });
 
+            modelBuilder.Entity("ApplicationCore.Models.MoviesReportModel", b =>
+                {
+                    b.Property<int>("PurchaseCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.ToTable("MovieReports");
+                });
+
             modelBuilder.Entity("ApplicationCore.Entities.Favorite", b =>
                 {
                     b.HasOne("ApplicationCore.Entities.Movie", "Movie")
