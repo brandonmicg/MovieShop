@@ -39,17 +39,25 @@ namespace Infrastructure.Services
                 ReleaseDate = createRequest.ReleaseDate,
                 RunTime = createRequest.RunTime,
                 Price = createRequest.Price,
+                GenresOfMovies = new List<MovieGenre>(),
+                Trailers = new List<Trailer>(),
+                CastOfMovies = new List<MovieCast>(),
+                CrewOfMovies = new List<MovieCrew>(),
+                ReviewOfMovies = new List<Review>(),
+                FavoritesOfMovies = new List<Favorite>(),
+                PurchasesOfMovies = new List<Purchase>(),
             };
 
             //fix
-            foreach(var genre in createRequest.Genres)
+
+            foreach (var genre in createRequest.Genres)
             {
                 newMovie.GenresOfMovies.Add(new MovieGenre
                 {
                     GenreId = genre.Id
                 });
             }
-
+            
 
             var movie = await _movieService.Add(newMovie);
 

@@ -26,9 +26,9 @@ namespace MovieShopAPI.Controllers
             var created = await _adminService.CreateMovie(createRequest);
 
             if(created)
-                return Ok();
+                return Ok(created);
 
-            return StatusCode(500, "Could not create movie");
+            return NotFound(new {errorMessage = "Could not create movie" });          
         }
 
         [HttpPut]

@@ -42,10 +42,15 @@ namespace Infrastructure.Services
                 ReleaseDate = movieDetails.ReleaseDate.Value.ToString("MMMM dd, yyyy"),
                 ReleaseYear = movieDetails.ReleaseDate.Value.Year,
                 Price = movieDetails.Price,
-                Rating = Math.Round(await _movieRepository.GetAverageRatingForMovie(id), 2),
+                Rating = 0,
                 IsPurchased = (userId == -1) ? false : await _purchaseRepository.CheckIfPurchaseExists(userId, id)
             };
 
+            if(movieDetails.ReviewOfMovies != null)
+            {
+                if (movieDetails.ReviewOfMovies.Count > 0)
+                    movie.Rating = Math.Round(await _movieRepository.GetAverageRatingForMovie(id), 2);
+            }
 
 
             foreach (var genre in movieDetails.GenresOfMovies)
