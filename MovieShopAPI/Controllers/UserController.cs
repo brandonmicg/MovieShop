@@ -25,7 +25,7 @@ namespace MovieShopAPI.Controllers
         public async Task<IActionResult> GetUserDetails()
         {
             var userId = _currentLoggedInUser.UserId;
-            var user = _userService.GetUserDetailsById(userId);
+            var user = await _userService.GetUserDetailsById(userId);
 
             if(user == null)
                 return NotFound(new { errorMessage = "User not found" });
@@ -33,7 +33,28 @@ namespace MovieShopAPI.Controllers
             return Ok(user);
         }
 
-        //public async Task<IActionResult> CheckMoviePurchased()
+        [HttpGet]
+        [Route("purchase-details/{movieId:int}")]
+        public async Task<IActionResult> GetUserPurchaseDetails(int movieId)
+        {
+            var userId = _currentLoggedInUser.UserId;
+            var purchase = await _userService.GetMoviePurchaseById(userId, movieId);
+
+            if (purchase == null)
+                return NotFound(new { errorMessage = "Movie purchase not found" });
+
+            return Ok(purchase);
+        }
+
+        [HttpGet]
+        [Route("check-movie-purchased/{movieId:int}")]
+        public async Task<IActionResult> CheckMoviePurchased(int movieId)
+        {
+            var userId = _currentLoggedInUser.UserId;
+            var purchased = await _userService.IsMoviePurchased(userId, movieId);
+
+            return Ok(purchased);
+        }
 
         //public async Task<IActionResult> PurchaseMovie()
 

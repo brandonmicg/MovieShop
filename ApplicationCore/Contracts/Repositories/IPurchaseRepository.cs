@@ -11,6 +11,7 @@ namespace ApplicationCore.Contracts.Repositories
     {
 
         Task<IEnumerable<Purchase>> GetPurchasesByUserId(int id);
+        Task<Purchase> GetPurchaseByMovieUserId(int userId, int movieId);
         Task<bool> CheckIfPurchaseExists(int userId, int movieId);
     }
 }

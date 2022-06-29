@@ -14,6 +14,7 @@ namespace ApplicationCore.Services
         Task<bool> IsMoviePurchased(PurchaseRequestModel purchaseRequest, int userId);
         Task<bool> IsMoviePurchased(int userId, int movieId);
         Task<IEnumerable<PurchaseRequestModel>> GetAllPurchasesForUserId(int id);
+        Task<PurchaseRequestModel> GetMoviePurchaseById(int userId, int movieId);
         Task<bool> AddFavorite(FavoriteRequestModel favoriteRequest);
         Task<bool> RemoveFavorite(FavoriteRequestModel favoriteRequest);
         Task<bool> FavoriteExists(int id, int movieId);

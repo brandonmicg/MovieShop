@@ -127,6 +127,23 @@ namespace Infrastructure.Services
             return favorite;
         }
 
+        public async Task<PurchaseRequestModel> GetMoviePurchaseById(int userId, int movieId)
+        {
+            var purchase = await _purchaseRepository.GetPurchaseByMovieUserId(userId, movieId);
+
+            if (purchase == null || !(purchase.Id > 0))
+                return null;
+
+            var purchaseRequest = new PurchaseRequestModel
+            {
+                PurchaseNumber = purchase.PurchaseNumber,
+                PurchaseDate = purchase.PurchaseDateTime,
+                MovieId = movieId
+            };
+
+            return purchaseRequest;
+        }
+
         public async Task<ReviewRequestModel> GetReview(int userId, int movieId)
         {
             var review = await _reviewRepository.GetReview(userId, movieId);
