@@ -13,12 +13,12 @@ namespace Infrastructure.Services
 {
     public class AdminService : IAdminService
     {
-        private readonly IMovieRepository _movieService;
+        private readonly IMovieRepository _movieRepository;
         private readonly IReportRepository _reportService;
 
-        public AdminService(IMovieRepository movieService, IReportRepository reportRepository)
+        public AdminService(IMovieRepository movieRepository, IReportRepository reportRepository)
         {
-            _movieService = movieService;
+            _movieRepository = movieRepository;
             _reportService = reportRepository;
         }
 
@@ -48,8 +48,6 @@ namespace Infrastructure.Services
                 PurchasesOfMovies = new List<Purchase>(),
             };
 
-            //fix
-
             foreach (var genre in createRequest.Genres)
             {
                 newMovie.GenresOfMovies.Add(new MovieGenre
@@ -59,7 +57,7 @@ namespace Infrastructure.Services
             }
             
 
-            var movie = await _movieService.Add(newMovie);
+            var movie = await _movieRepository.Add(newMovie);
 
             if (movie.Id > 0)
                 return true;
@@ -81,6 +79,7 @@ namespace Infrastructure.Services
         {
             var newMovie = new Movie
             {
+                Id = createRequest.Id,
                 Title = createRequest.Title,
                 Overview = createRequest.Overview,
                 Tagline = createRequest.Tagline,
@@ -94,19 +93,21 @@ namespace Infrastructure.Services
                 ReleaseDate = createRequest.ReleaseDate,
                 RunTime = createRequest.RunTime,
                 Price = createRequest.Price,
+                GenresOfMovies = new List<MovieGenre>(),
             };
 
-            //fix
+            
             foreach (var genre in createRequest.Genres)
             {
                 newMovie.GenresOfMovies.Add(new MovieGenre
                 {
+                    MovieId = newMovie.Id,
                     GenreId = genre.Id
                 });
             }
 
 
-            var movie = await _movieService.Update(newMovie);
+            var movie = await _movieRepository.Update(newMovie);
 
             if (movie.Id > 0)
                 return true;

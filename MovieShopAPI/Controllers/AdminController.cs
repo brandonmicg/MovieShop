@@ -39,9 +39,9 @@ namespace MovieShopAPI.Controllers
             var updated = await _adminService.UpdateMovie(createRequest);
 
             if (updated)
-                return Ok();
+                return Ok(updated);
 
-            return StatusCode(500, "Could not update movie");
+            return NotFound(new { errorMessage = "Could not update movie" });
         }
 
         [HttpGet]
